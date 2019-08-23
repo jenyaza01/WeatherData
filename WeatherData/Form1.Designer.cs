@@ -286,7 +286,7 @@
             // panel7
             // 
             this.panel7.BackColor = System.Drawing.Color.GreenYellow;
-            this.panel7.BackgroundImage = global::Weatherdata1.Properties.Resources.co2Geradient;
+            this.panel7.BackgroundImage = global::Weatherdata.Properties.Resources.co2Geradient;
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel7.Location = new System.Drawing.Point(523, 291);
             this.panel7.Name = "panel7";
@@ -333,7 +333,7 @@
             // panelHumdFull
             // 
             this.panelHumdFull.BackColor = System.Drawing.SystemColors.Control;
-            this.panelHumdFull.BackgroundImage = global::Weatherdata1.Properties.Resources.WaterDropletFull1;
+            this.panelHumdFull.BackgroundImage = global::Weatherdata.Properties.Resources.WaterDropletFull1;
             this.panelHumdFull.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.panelHumdFull.Location = new System.Drawing.Point(945, 78);
             this.panelHumdFull.Name = "panelHumdFull";
@@ -343,7 +343,7 @@
             // panelHumdZero
             // 
             this.panelHumdZero.BackColor = System.Drawing.SystemColors.Control;
-            this.panelHumdZero.BackgroundImage = global::Weatherdata1.Properties.Resources.WaterDropletSmall;
+            this.panelHumdZero.BackgroundImage = global::Weatherdata.Properties.Resources.WaterDropletSmall;
             this.panelHumdZero.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.panelHumdZero.Location = new System.Drawing.Point(945, 78);
             this.panelHumdZero.Name = "panelHumdZero";
