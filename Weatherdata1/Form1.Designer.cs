@@ -32,10 +32,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.labelTemp = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panelTemp = new System.Windows.Forms.Panel();
             this.labelPress = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.labMMHG = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
@@ -45,34 +42,22 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.panelLux = new System.Windows.Forms.Panel();
             this.labelLux = new System.Windows.Forms.Label();
             this.labLUX = new System.Windows.Forms.Label();
             this.hScrollBar4 = new System.Windows.Forms.HScrollBar();
             this.labPPM = new System.Windows.Forms.Label();
             this.hScrollBar5 = new System.Windows.Forms.HScrollBar();
             this.labelCO2 = new System.Windows.Forms.Label();
-            this.panelCO2 = new System.Windows.Forms.Panel();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.panel7 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.panel10 = new System.Windows.Forms.Panel();
-            this.panel11 = new System.Windows.Forms.Panel();
-            this.panel12 = new System.Windows.Forms.Panel();
-            this.panel13 = new System.Windows.Forms.Panel();
-            this.panel14 = new System.Windows.Forms.Panel();
-            this.panel15 = new System.Windows.Forms.Panel();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelTemp = new System.Windows.Forms.Panel();
+            this.panelHumdFull = new System.Windows.Forms.Panel();
+            this.panelHumdZero = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
-            this.panel6.SuspendLayout();
-            this.panel7.SuspendLayout();
-            this.panel5.SuspendLayout();
-            this.panel9.SuspendLayout();
-            this.panel10.SuspendLayout();
-            this.panel11.SuspendLayout();
-            this.panel12.SuspendLayout();
             this.SuspendLayout();
             // 
             // button2
@@ -105,24 +90,6 @@
             this.labelTemp.TabIndex = 5;
             this.labelTemp.Text = "21.2°C";
             // 
-            // panel1
-            // 
-            this.panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel1.BackgroundImage")));
-            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panel1.Controls.Add(this.panelTemp);
-            this.panel1.Location = new System.Drawing.Point(12, 59);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(42, 106);
-            this.panel1.TabIndex = 10;
-            // 
-            // panelTemp
-            // 
-            this.panelTemp.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panelTemp.Location = new System.Drawing.Point(18, 35);
-            this.panelTemp.Name = "panelTemp";
-            this.panelTemp.Size = new System.Drawing.Size(5, 42);
-            this.panelTemp.TabIndex = 22;
-            // 
             // labelPress
             // 
             this.labelPress.AutoSize = true;
@@ -133,16 +100,6 @@
             this.labelPress.Size = new System.Drawing.Size(141, 77);
             this.labelPress.TabIndex = 11;
             this.labelPress.Text = "745";
-            // 
-            // panel2
-            // 
-            this.panel2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel2.BackgroundImage")));
-            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panel2.Location = new System.Drawing.Point(336, 58);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(362, 108);
-            this.panel2.TabIndex = 12;
-            this.panel2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel2_MouseMove);
             // 
             // labMMHG
             // 
@@ -168,7 +125,7 @@
             // hScrollBar1
             // 
             this.hScrollBar1.LargeChange = 1;
-            this.hScrollBar1.Location = new System.Drawing.Point(372, 205);
+            this.hScrollBar1.Location = new System.Drawing.Point(372, 206);
             this.hScrollBar1.Maximum = 7700;
             this.hScrollBar1.Minimum = 7200;
             this.hScrollBar1.Name = "hScrollBar1";
@@ -180,7 +137,7 @@
             // hScrollBar2
             // 
             this.hScrollBar2.LargeChange = 1;
-            this.hScrollBar2.Location = new System.Drawing.Point(12, 183);
+            this.hScrollBar2.Location = new System.Drawing.Point(12, 176);
             this.hScrollBar2.Maximum = 400;
             this.hScrollBar2.Minimum = 100;
             this.hScrollBar2.Name = "hScrollBar2";
@@ -193,7 +150,7 @@
             // 
             this.labelHumd.AutoSize = true;
             this.labelHumd.Font = new System.Drawing.Font("Maiandra GD", 53.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelHumd.Location = new System.Drawing.Point(777, 78);
+            this.labelHumd.Location = new System.Drawing.Point(764, 78);
             this.labelHumd.Name = "labelHumd";
             this.labelHumd.Size = new System.Drawing.Size(188, 85);
             this.labelHumd.TabIndex = 17;
@@ -202,9 +159,9 @@
             // hScrollBar3
             // 
             this.hScrollBar3.LargeChange = 1;
-            this.hScrollBar3.Location = new System.Drawing.Point(751, 169);
+            this.hScrollBar3.Location = new System.Drawing.Point(751, 166);
             this.hScrollBar3.Maximum = 990;
-            this.hScrollBar3.Minimum = 100;
+            this.hScrollBar3.Minimum = 10;
             this.hScrollBar3.Name = "hScrollBar3";
             this.hScrollBar3.Size = new System.Drawing.Size(227, 22);
             this.hScrollBar3.TabIndex = 18;
@@ -241,14 +198,6 @@
             this.button5.Text = "chart";
             this.button5.UseVisualStyleBackColor = true;
             // 
-            // panelLux
-            // 
-            this.panelLux.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panelLux.Location = new System.Drawing.Point(3, 3);
-            this.panelLux.Name = "panelLux";
-            this.panelLux.Size = new System.Drawing.Size(338, 20);
-            this.panelLux.TabIndex = 22;
-            // 
             // labelLux
             // 
             this.labelLux.AutoSize = true;
@@ -274,8 +223,8 @@
             // hScrollBar4
             // 
             this.hScrollBar4.LargeChange = 1;
-            this.hScrollBar4.Location = new System.Drawing.Point(12, 395);
-            this.hScrollBar4.Maximum = 9999;
+            this.hScrollBar4.Location = new System.Drawing.Point(12, 390);
+            this.hScrollBar4.Maximum = 2000;
             this.hScrollBar4.Name = "hScrollBar4";
             this.hScrollBar4.Size = new System.Drawing.Size(387, 22);
             this.hScrollBar4.TabIndex = 27;
@@ -295,7 +244,7 @@
             // hScrollBar5
             // 
             this.hScrollBar5.LargeChange = 1;
-            this.hScrollBar5.Location = new System.Drawing.Point(492, 396);
+            this.hScrollBar5.Location = new System.Drawing.Point(493, 388);
             this.hScrollBar5.Maximum = 5000;
             this.hScrollBar5.Minimum = 400;
             this.hScrollBar5.Name = "hScrollBar5";
@@ -316,127 +265,98 @@
             this.labelCO2.Text = "670";
             this.labelCO2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // panelCO2
+            // panel4
             // 
-            this.panelCO2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panelCO2.Location = new System.Drawing.Point(3, 3);
-            this.panelCO2.Name = "panelCO2";
-            this.panelCO2.Size = new System.Drawing.Size(412, 20);
-            this.panelCO2.TabIndex = 28;
+            this.panel4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel4.BackgroundImage")));
+            this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel4.Location = new System.Drawing.Point(704, 272);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(29, 19);
+            this.panel4.TabIndex = 36;
             // 
-            // panel6
+            // panel3
             // 
-            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel6.Controls.Add(this.panel5);
-            this.panel6.Controls.Add(this.panelLux);
-            this.panel6.Location = new System.Drawing.Point(21, 291);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(344, 27);
-            this.panel6.TabIndex = 32;
+            this.panel3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel3.BackgroundImage")));
+            this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel3.Location = new System.Drawing.Point(207, 272);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(29, 19);
+            this.panel3.TabIndex = 35;
             // 
             // panel7
             // 
+            this.panel7.BackColor = System.Drawing.Color.GreenYellow;
+            this.panel7.BackgroundImage = global::Weatherdata1.Properties.Resources.co2Geradient;
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel7.Controls.Add(this.panelCO2);
             this.panel7.Location = new System.Drawing.Point(523, 291);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(418, 26);
             this.panel7.TabIndex = 33;
             // 
-            // panel3
+            // panel6
             // 
-            this.panel3.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panel3.Location = new System.Drawing.Point(3, 3);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(338, 20);
-            this.panel3.TabIndex = 22;
+            this.panel6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel6.BackgroundImage")));
+            this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel6.Location = new System.Drawing.Point(21, 291);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(344, 27);
+            this.panel6.TabIndex = 32;
             // 
-            // panel5
+            // panel2
             // 
-            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel5.Controls.Add(this.panel9);
-            this.panel5.Controls.Add(this.panel3);
-            this.panel5.Location = new System.Drawing.Point(-1, -1);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(344, 27);
-            this.panel5.TabIndex = 33;
+            this.panel2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel2.BackgroundImage")));
+            this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panel2.Location = new System.Drawing.Point(336, 58);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(362, 108);
+            this.panel2.TabIndex = 12;
+            this.panel2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel2_MouseMove);
             // 
-            // panel8
+            // panel1
             // 
-            this.panel8.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panel8.Location = new System.Drawing.Point(3, 3);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(338, 20);
-            this.panel8.TabIndex = 22;
+            this.panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel1.BackgroundImage")));
+            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panel1.Controls.Add(this.panelTemp);
+            this.panel1.Location = new System.Drawing.Point(12, 59);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(42, 106);
+            this.panel1.TabIndex = 10;
             // 
-            // panel9
+            // panelTemp
             // 
-            this.panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel9.Controls.Add(this.panel8);
-            this.panel9.Location = new System.Drawing.Point(-1, -1);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(344, 27);
-            this.panel9.TabIndex = 33;
+            this.panelTemp.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.panelTemp.Location = new System.Drawing.Point(18, 35);
+            this.panelTemp.Name = "panelTemp";
+            this.panelTemp.Size = new System.Drawing.Size(5, 42);
+            this.panelTemp.TabIndex = 22;
             // 
-            // panel10
+            // panelHumdFull
             // 
-            this.panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel10.Controls.Add(this.panel11);
-            this.panel10.Controls.Add(this.panel15);
-            this.panel10.Location = new System.Drawing.Point(736, 38);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(253, 27);
-            this.panel10.TabIndex = 34;
+            this.panelHumdFull.BackColor = System.Drawing.SystemColors.Control;
+            this.panelHumdFull.BackgroundImage = global::Weatherdata1.Properties.Resources.WaterDropletFull1;
+            this.panelHumdFull.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.panelHumdFull.Location = new System.Drawing.Point(945, 78);
+            this.panelHumdFull.Name = "panelHumdFull";
+            this.panelHumdFull.Size = new System.Drawing.Size(41, 80);
+            this.panelHumdFull.TabIndex = 35;
             // 
-            // panel11
+            // panelHumdZero
             // 
-            this.panel11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel11.Controls.Add(this.panel12);
-            this.panel11.Controls.Add(this.panel14);
-            this.panel11.Location = new System.Drawing.Point(-1, -1);
-            this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(344, 27);
-            this.panel11.TabIndex = 33;
-            // 
-            // panel12
-            // 
-            this.panel12.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel12.Controls.Add(this.panel13);
-            this.panel12.Location = new System.Drawing.Point(-1, -1);
-            this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(344, 27);
-            this.panel12.TabIndex = 33;
-            // 
-            // panel13
-            // 
-            this.panel13.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panel13.Location = new System.Drawing.Point(3, 3);
-            this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(245, 20);
-            this.panel13.TabIndex = 22;
-            // 
-            // panel14
-            // 
-            this.panel14.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panel14.Location = new System.Drawing.Point(3, 3);
-            this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(338, 20);
-            this.panel14.TabIndex = 22;
-            // 
-            // panel15
-            // 
-            this.panel15.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panel15.Location = new System.Drawing.Point(3, 3);
-            this.panel15.Name = "panel15";
-            this.panel15.Size = new System.Drawing.Size(338, 20);
-            this.panel15.TabIndex = 22;
+            this.panelHumdZero.BackColor = System.Drawing.SystemColors.Control;
+            this.panelHumdZero.BackgroundImage = global::Weatherdata1.Properties.Resources.WaterDropletSmall;
+            this.panelHumdZero.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.panelHumdZero.Location = new System.Drawing.Point(945, 78);
+            this.panelHumdZero.Name = "panelHumdZero";
+            this.panelHumdZero.Size = new System.Drawing.Size(41, 80);
+            this.panelHumdZero.TabIndex = 34;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1012, 625);
-            this.Controls.Add(this.panel10);
+            this.Controls.Add(this.panel4);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel7);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.labPPM);
@@ -450,7 +370,6 @@
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.hScrollBar3);
-            this.Controls.Add(this.labelHumd);
             this.Controls.Add(this.hScrollBar2);
             this.Controls.Add(this.labelPress);
             this.Controls.Add(this.hScrollBar1);
@@ -460,17 +379,13 @@
             this.Controls.Add(this.labelTemp);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button2);
+            this.Controls.Add(this.panelHumdZero);
+            this.Controls.Add(this.panelHumdFull);
+            this.Controls.Add(this.labelHumd);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
-            this.panel6.ResumeLayout(false);
-            this.panel7.ResumeLayout(false);
-            this.panel5.ResumeLayout(false);
-            this.panel9.ResumeLayout(false);
-            this.panel10.ResumeLayout(false);
-            this.panel11.ResumeLayout(false);
-            this.panel12.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -494,26 +409,18 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Panel panelTemp;
-        private System.Windows.Forms.Panel panelLux;
         private System.Windows.Forms.Label labelLux;
         private System.Windows.Forms.Label labLUX;
         private System.Windows.Forms.HScrollBar hScrollBar4;
         private System.Windows.Forms.Label labPPM;
         private System.Windows.Forms.HScrollBar hScrollBar5;
         private System.Windows.Forms.Label labelCO2;
-        private System.Windows.Forms.Panel panelCO2;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel10;
-        private System.Windows.Forms.Panel panel11;
-        private System.Windows.Forms.Panel panel12;
-        private System.Windows.Forms.Panel panel13;
-        private System.Windows.Forms.Panel panel14;
-        private System.Windows.Forms.Panel panel15;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panelHumdZero;
+        private System.Windows.Forms.Panel panelHumdFull;
     }
 }
 
