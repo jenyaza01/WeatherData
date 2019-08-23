@@ -12,13 +12,14 @@ namespace Weatherdata1
         }
 
         private Graphics g;
-        private int luxPosition, pressPosition, co2Position;
+        private int luxPosition, pressPosition, co2Position, humdPosition;
         private void Form1_Load(Object sender, EventArgs e)
         {
             g = panel2.CreateGraphics();
             luxPosition = labelLux.Left + labelLux.Width;
             pressPosition = labelPress.Left + labelPress.Width;
             co2Position = labelCO2.Left + labelCO2.Width;
+            humdPosition = labelHumd.Left + labelHumd.Width;
         }
 
 
@@ -99,6 +100,7 @@ namespace Weatherdata1
         {
             humdValue = hScrollBar3.Value / 10f;
             labelHumd.Text = Math.Round(humdValue).ToString() + "%";
+            labelHumd.Left = humdPosition - labelHumd.Width;
             panelHumdZero.Height  = (int)Math.Round(73-humdValue * 0.62);
 
         }
@@ -109,8 +111,8 @@ namespace Weatherdata1
             co2Value = hScrollBar5.Value;
             labelCO2.Text = co2Value.ToString();
             labelCO2.Left = co2Position - labelCO2.Width;
+
             panel4.Left = (int)Math.Round(Math.Log(co2Value - 300) * 89 + 168);
-            // panelCO2.Width = (int)Math.Round(Math.Log(co2Value - 250) * 117 - 581);
         }
 
         private int luxValue;
@@ -119,7 +121,8 @@ namespace Weatherdata1
             luxValue = hScrollBar4.Value;
             labelLux.Text = luxValue.ToString();
             labelLux.Left = luxPosition - labelLux.Width;
-            panel3.Left = (int)Math.Round(Math.Log(luxValue + 5) * 44 - 59);
+
+            panel3.Left = (int)Math.Round(Math.Log(luxValue + 5) * 44 - 34);
         }
     }
 }

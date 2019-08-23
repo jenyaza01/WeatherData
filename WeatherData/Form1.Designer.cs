@@ -202,7 +202,7 @@
             // 
             this.labelLux.AutoSize = true;
             this.labelLux.Font = new System.Drawing.Font("Maiandra GD", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelLux.Location = new System.Drawing.Point(144, 321);
+            this.labelLux.Location = new System.Drawing.Point(169, 321);
             this.labelLux.Margin = new System.Windows.Forms.Padding(0);
             this.labelLux.Name = "labelLux";
             this.labelLux.Size = new System.Drawing.Size(105, 77);
@@ -214,7 +214,7 @@
             // 
             this.labLUX.AutoSize = true;
             this.labLUX.Font = new System.Drawing.Font("Maiandra GD", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labLUX.Location = new System.Drawing.Point(239, 366);
+            this.labLUX.Location = new System.Drawing.Point(264, 366);
             this.labLUX.Name = "labLUX";
             this.labLUX.Size = new System.Drawing.Size(30, 19);
             this.labLUX.TabIndex = 26;
@@ -226,7 +226,7 @@
             this.hScrollBar4.Location = new System.Drawing.Point(12, 390);
             this.hScrollBar4.Maximum = 2000;
             this.hScrollBar4.Name = "hScrollBar4";
-            this.hScrollBar4.Size = new System.Drawing.Size(387, 22);
+            this.hScrollBar4.Size = new System.Drawing.Size(427, 22);
             this.hScrollBar4.TabIndex = 27;
             this.hScrollBar4.Value = 96;
             this.hScrollBar4.ValueChanged += new System.EventHandler(this.hScrollBar4_ValueChanged);
@@ -244,11 +244,11 @@
             // hScrollBar5
             // 
             this.hScrollBar5.LargeChange = 1;
-            this.hScrollBar5.Location = new System.Drawing.Point(493, 388);
-            this.hScrollBar5.Maximum = 5000;
+            this.hScrollBar5.Location = new System.Drawing.Point(469, 385);
+            this.hScrollBar5.Maximum = 4000;
             this.hScrollBar5.Minimum = 400;
             this.hScrollBar5.Name = "hScrollBar5";
-            this.hScrollBar5.Size = new System.Drawing.Size(449, 22);
+            this.hScrollBar5.Size = new System.Drawing.Size(534, 22);
             this.hScrollBar5.TabIndex = 31;
             this.hScrollBar5.Value = 670;
             this.hScrollBar5.ValueChanged += new System.EventHandler(this.hScrollBar5_ValueChanged);
@@ -278,7 +278,7 @@
             // 
             this.panel3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel3.BackgroundImage")));
             this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel3.Location = new System.Drawing.Point(207, 272);
+            this.panel3.Location = new System.Drawing.Point(232, 272);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(29, 19);
             this.panel3.TabIndex = 35;
@@ -297,7 +297,7 @@
             // 
             this.panel6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel6.BackgroundImage")));
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel6.Location = new System.Drawing.Point(21, 291);
+            this.panel6.Location = new System.Drawing.Point(46, 291);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(344, 27);
             this.panel6.TabIndex = 32;
