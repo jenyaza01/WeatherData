@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button2 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -57,6 +58,8 @@
             this.panelTemp = new System.Windows.Forms.Panel();
             this.panelHumdFull = new System.Windows.Forms.Panel();
             this.panelHumdZero = new System.Windows.Forms.Panel();
+            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -132,19 +135,17 @@
             this.hScrollBar1.Size = new System.Drawing.Size(281, 22);
             this.hScrollBar1.TabIndex = 15;
             this.hScrollBar1.Value = 7450;
-            this.hScrollBar1.ValueChanged += new System.EventHandler(this.hScrollBar1_ValueChanged);
             // 
             // hScrollBar2
             // 
             this.hScrollBar2.LargeChange = 1;
             this.hScrollBar2.Location = new System.Drawing.Point(12, 176);
-            this.hScrollBar2.Maximum = 400;
+            this.hScrollBar2.Maximum = 450;
             this.hScrollBar2.Minimum = 100;
             this.hScrollBar2.Name = "hScrollBar2";
             this.hScrollBar2.Size = new System.Drawing.Size(283, 22);
             this.hScrollBar2.TabIndex = 16;
             this.hScrollBar2.Value = 212;
-            this.hScrollBar2.ValueChanged += new System.EventHandler(this.hScrollBar2_ValueChanged);
             // 
             // labelHumd
             // 
@@ -166,7 +167,6 @@
             this.hScrollBar3.Size = new System.Drawing.Size(227, 22);
             this.hScrollBar3.TabIndex = 18;
             this.hScrollBar3.Value = 540;
-            this.hScrollBar3.ValueChanged += new System.EventHandler(this.hScrollBar3_ValueChanged);
             // 
             // button3
             // 
@@ -224,12 +224,11 @@
             // 
             this.hScrollBar4.LargeChange = 1;
             this.hScrollBar4.Location = new System.Drawing.Point(12, 390);
-            this.hScrollBar4.Maximum = 2000;
+            this.hScrollBar4.Maximum = 9999;
             this.hScrollBar4.Name = "hScrollBar4";
             this.hScrollBar4.Size = new System.Drawing.Size(427, 22);
             this.hScrollBar4.TabIndex = 27;
             this.hScrollBar4.Value = 96;
-            this.hScrollBar4.ValueChanged += new System.EventHandler(this.hScrollBar4_ValueChanged);
             // 
             // labPPM
             // 
@@ -245,13 +244,12 @@
             // 
             this.hScrollBar5.LargeChange = 1;
             this.hScrollBar5.Location = new System.Drawing.Point(469, 385);
-            this.hScrollBar5.Maximum = 4000;
+            this.hScrollBar5.Maximum = 5000;
             this.hScrollBar5.Minimum = 400;
             this.hScrollBar5.Name = "hScrollBar5";
             this.hScrollBar5.Size = new System.Drawing.Size(534, 22);
             this.hScrollBar5.TabIndex = 31;
             this.hScrollBar5.Value = 670;
-            this.hScrollBar5.ValueChanged += new System.EventHandler(this.hScrollBar5_ValueChanged);
             // 
             // labelCO2
             // 
@@ -310,7 +308,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(362, 108);
             this.panel2.TabIndex = 12;
-            this.panel2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel2_MouseMove);
             // 
             // panel1
             // 
@@ -349,6 +346,11 @@
             this.panelHumdZero.Name = "panelHumdZero";
             this.panelHumdZero.Size = new System.Drawing.Size(41, 80);
             this.panelHumdZero.TabIndex = 34;
+            // 
+            // serialPort1
+            // 
+            this.serialPort1.RtsEnable = true;
+            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
             // 
             // Form1
             // 
@@ -421,6 +423,8 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panelHumdZero;
         private System.Windows.Forms.Panel panelHumdFull;
+        private System.IO.Ports.SerialPort serialPort1;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
     }
 }
 

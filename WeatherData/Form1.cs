@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.IO.Ports;
 using System.Windows.Forms;
 
 namespace Weatherdata1
@@ -12,7 +13,7 @@ namespace Weatherdata1
         }
 
         private Graphics g;
-        private int luxPosition, pressPosition, co2Position, humdPosition;
+        private int luxPosition, pressPosition, co2Position, humdPosition; //labels
         private void Form1_Load(Object sender, EventArgs e)
         {
             g = panel2.CreateGraphics();
@@ -20,42 +21,16 @@ namespace Weatherdata1
             pressPosition = labelPress.Left + labelPress.Width;
             co2Position = labelCO2.Left + labelCO2.Width;
             humdPosition = labelHumd.Left + labelHumd.Width;
+
+            
+            serialPort1.PortName = SerialPort.GetPortNames()[0];
+            serialPort1.Open();
         }
 
 
-        private static Bitmap RotateImage(Bitmap bmp, float angle)
-        {
-            float alpha = angle;
 
-            //edit: negative angle +360
-            while (alpha < 0) alpha += 360;
 
-            float gamma = 90;
-            float beta = 180 - angle - gamma;
-
-            float c1 = bmp.Height;
-            float a1 = (float)(c1 * Math.Sin(alpha * Math.PI / 180) / Math.Sin(gamma * Math.PI / 180));
-            float b1 = (float)(c1 * Math.Sin(beta * Math.PI / 180) / Math.Sin(gamma * Math.PI / 180));
-
-            float c2 = bmp.Width;
-            float a2 = (float)(c2 * Math.Sin(alpha * Math.PI / 180) / Math.Sin(gamma * Math.PI / 180));
-            float b2 = (float)(c2 * Math.Sin(beta * Math.PI / 180) / Math.Sin(gamma * Math.PI / 180));
-
-            int width = Convert.ToInt32(b2 + a1);
-            int height = Convert.ToInt32(b1 + a2);
-
-            Bitmap rotatedImage = new Bitmap(width, height);
-            using (Graphics g = Graphics.FromImage(rotatedImage))
-            {
-                g.TranslateTransform(rotatedImage.Width / 2, rotatedImage.Height / 2); //set the rotation point as the center into the matrix
-                g.RotateTransform(angle); //rotate
-                g.TranslateTransform(-rotatedImage.Width / 2, -rotatedImage.Height / 2); //restore rotation point into the matrix
-                g.DrawImage(bmp, new Point((width - bmp.Width) / 2, (height - bmp.Height) / 2)); //draw the image on the new bitmap
-            }
-            return rotatedImage;
-        }
-
-        private void button1_Click(Object sender, EventArgs e)
+        private void button1_Click(Object sender, EventArgs e) // draw arrow for pressure
         {
             Point p = new Point();
             if (pressValue < 745)
@@ -66,63 +41,105 @@ namespace Weatherdata1
             g.DrawLine(new Pen(Color.Gray, 3), p, new Point(180, 220));
         }
 
-        private void panel2_MouseMove(Object sender, MouseEventArgs e)
+
+
+
+        private float _pressValue = 770;
+        public float pressValue
         {
-            button1.Text = e.X.ToString() + " x " + e.Y.ToString();
+            get { return _pressValue; }
+            set { _pressValue = value; PressureUpdate(); }
         }
-
-
-
-        private float pressValue = 770;
-        private void hScrollBar1_ValueChanged(Object sender, EventArgs e)
+        private void PressureUpdate()
         {
             panel2.Invalidate();
             Application.DoEvents();
-            pressValue = hScrollBar1.Value / 10f;
             labelPress.Text = pressValue.ToString("000");
             button1_Click(null, null); //draw arrow
             labelPress.Left = pressPosition - labelPress.Width;
         }
 
 
-        private float tempValue = 21.3f;
-        private void hScrollBar2_ValueChanged(Object sender, EventArgs e)
+
+
+        private float _tempValue = 21.3f;
+        public float tempValue
         {
-            tempValue = hScrollBar2.Value / 10f;
+            get { return _tempValue; }
+            set { _tempValue = value; TempUpdate(); }
+        }
+        private void TempUpdate()
+        {
             labelTemp.Text = tempValue.ToString("00.0°C");
             panelTemp.Top = (int)Math.Round(81 - tempValue * 1.5f);
             panelTemp.Height = (int)Math.Round(tempValue * 1.5f);
         }
 
 
-        private float humdValue;
-        private void hScrollBar3_ValueChanged(Object sender, EventArgs e)
+
+
+        private float _humdValue;
+        public float humdValue
         {
-            humdValue = hScrollBar3.Value / 10f;
+            get { return _humdValue; }
+            set { _humdValue = value; HumdUpdate(); }
+        }
+        private void HumdUpdate()
+        {
             labelHumd.Text = Math.Round(humdValue).ToString() + "%";
             labelHumd.Left = humdPosition - labelHumd.Width;
-            panelHumdZero.Height  = (int)Math.Round(73-humdValue * 0.62);
+            panelHumdZero.Height = (int)Math.Round(73 - humdValue * 0.62);
 
         }
 
-        private int co2Value;
-        private void hScrollBar5_ValueChanged(Object sender, EventArgs e)
+
+
+
+        private int _co2Value;
+        public int co2Value
         {
-            co2Value = hScrollBar5.Value;
+            get { return _co2Value; }
+            set { _co2Value = value; CO2Update(); }
+        }
+        private void CO2Update()
+        {
             labelCO2.Text = co2Value.ToString();
             labelCO2.Left = co2Position - labelCO2.Width;
-
             panel4.Left = (int)Math.Round(Math.Log(co2Value - 300) * 89 + 168);
         }
 
-        private int luxValue;
-        private void hScrollBar4_ValueChanged(Object sender, EventArgs e)
+
+
+
+        private int _luxValue;
+        public int luxValue
         {
-            luxValue = hScrollBar4.Value;
+            get { return _luxValue; }
+            set { _luxValue = value; LuxUpdate(); }
+        }
+        private void LuxUpdate()
+        {
             labelLux.Text = luxValue.ToString();
             labelLux.Left = luxPosition - labelLux.Width;
 
             panel3.Left = (int)Math.Round(Math.Log(luxValue + 5) * 44 - 34);
+        }
+
+
+
+
+        private void serialPort1_DataReceived(Object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
+        {
+            String s = serialPort1.ReadLine();
+            ParseWeatherString(s);
+        }
+
+        private void ParseWeatherString(String s)
+        {
+            if (s[0].Equals('S'))
+            {
+                MessageBox.Show(s);
+            }
         }
     }
 }
