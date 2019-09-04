@@ -1,4 +1,4 @@
-﻿namespace Weatherdata1
+﻿namespace Weatherdata
 {
     partial class Form1
     {
@@ -36,19 +36,19 @@
             this.labelPress = new System.Windows.Forms.Label();
             this.labMMHG = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
-            this.hScrollBar2 = new System.Windows.Forms.HScrollBar();
             this.labelHumd = new System.Windows.Forms.Label();
-            this.hScrollBar3 = new System.Windows.Forms.HScrollBar();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.labelLux = new System.Windows.Forms.Label();
             this.labLUX = new System.Windows.Forms.Label();
-            this.hScrollBar4 = new System.Windows.Forms.HScrollBar();
             this.labPPM = new System.Windows.Forms.Label();
-            this.hScrollBar5 = new System.Windows.Forms.HScrollBar();
             this.labelCO2 = new System.Windows.Forms.Label();
+            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.hScrollBar4 = new System.Windows.Forms.HScrollBar();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
@@ -56,10 +56,8 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panelTemp = new System.Windows.Forms.Panel();
-            this.panelHumdFull = new System.Windows.Forms.Panel();
             this.panelHumdZero = new System.Windows.Forms.Panel();
-            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.panelHumdFull = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -125,28 +123,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // hScrollBar1
-            // 
-            this.hScrollBar1.LargeChange = 1;
-            this.hScrollBar1.Location = new System.Drawing.Point(372, 206);
-            this.hScrollBar1.Maximum = 7700;
-            this.hScrollBar1.Minimum = 7200;
-            this.hScrollBar1.Name = "hScrollBar1";
-            this.hScrollBar1.Size = new System.Drawing.Size(281, 22);
-            this.hScrollBar1.TabIndex = 15;
-            this.hScrollBar1.Value = 7450;
-            // 
-            // hScrollBar2
-            // 
-            this.hScrollBar2.LargeChange = 1;
-            this.hScrollBar2.Location = new System.Drawing.Point(12, 176);
-            this.hScrollBar2.Maximum = 450;
-            this.hScrollBar2.Minimum = 100;
-            this.hScrollBar2.Name = "hScrollBar2";
-            this.hScrollBar2.Size = new System.Drawing.Size(283, 22);
-            this.hScrollBar2.TabIndex = 16;
-            this.hScrollBar2.Value = 212;
-            // 
             // labelHumd
             // 
             this.labelHumd.AutoSize = true;
@@ -156,17 +132,6 @@
             this.labelHumd.Size = new System.Drawing.Size(188, 85);
             this.labelHumd.TabIndex = 17;
             this.labelHumd.Text = "54%";
-            // 
-            // hScrollBar3
-            // 
-            this.hScrollBar3.LargeChange = 1;
-            this.hScrollBar3.Location = new System.Drawing.Point(751, 166);
-            this.hScrollBar3.Maximum = 990;
-            this.hScrollBar3.Minimum = 10;
-            this.hScrollBar3.Name = "hScrollBar3";
-            this.hScrollBar3.Size = new System.Drawing.Size(227, 22);
-            this.hScrollBar3.TabIndex = 18;
-            this.hScrollBar3.Value = 540;
             // 
             // button3
             // 
@@ -202,7 +167,7 @@
             // 
             this.labelLux.AutoSize = true;
             this.labelLux.Font = new System.Drawing.Font("Maiandra GD", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelLux.Location = new System.Drawing.Point(169, 321);
+            this.labelLux.Location = new System.Drawing.Point(206, 321);
             this.labelLux.Margin = new System.Windows.Forms.Padding(0);
             this.labelLux.Name = "labelLux";
             this.labelLux.Size = new System.Drawing.Size(105, 77);
@@ -214,48 +179,27 @@
             // 
             this.labLUX.AutoSize = true;
             this.labLUX.Font = new System.Drawing.Font("Maiandra GD", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labLUX.Location = new System.Drawing.Point(264, 366);
+            this.labLUX.Location = new System.Drawing.Point(301, 366);
             this.labLUX.Name = "labLUX";
             this.labLUX.Size = new System.Drawing.Size(30, 19);
             this.labLUX.TabIndex = 26;
             this.labLUX.Text = "lux";
             // 
-            // hScrollBar4
-            // 
-            this.hScrollBar4.LargeChange = 1;
-            this.hScrollBar4.Location = new System.Drawing.Point(12, 390);
-            this.hScrollBar4.Maximum = 9999;
-            this.hScrollBar4.Name = "hScrollBar4";
-            this.hScrollBar4.Size = new System.Drawing.Size(427, 22);
-            this.hScrollBar4.TabIndex = 27;
-            this.hScrollBar4.Value = 96;
-            // 
             // labPPM
             // 
             this.labPPM.AutoSize = true;
             this.labPPM.Font = new System.Drawing.Font("Maiandra GD", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labPPM.Location = new System.Drawing.Point(787, 366);
+            this.labPPM.Location = new System.Drawing.Point(792, 366);
             this.labPPM.Name = "labPPM";
             this.labPPM.Size = new System.Drawing.Size(41, 19);
             this.labPPM.TabIndex = 30;
             this.labPPM.Text = "ppm";
             // 
-            // hScrollBar5
-            // 
-            this.hScrollBar5.LargeChange = 1;
-            this.hScrollBar5.Location = new System.Drawing.Point(469, 385);
-            this.hScrollBar5.Maximum = 5000;
-            this.hScrollBar5.Minimum = 400;
-            this.hScrollBar5.Name = "hScrollBar5";
-            this.hScrollBar5.Size = new System.Drawing.Size(534, 22);
-            this.hScrollBar5.TabIndex = 31;
-            this.hScrollBar5.Value = 670;
-            // 
             // labelCO2
             // 
             this.labelCO2.AutoSize = true;
             this.labelCO2.Font = new System.Drawing.Font("Maiandra GD", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCO2.Location = new System.Drawing.Point(650, 321);
+            this.labelCO2.Location = new System.Drawing.Point(658, 321);
             this.labelCO2.Margin = new System.Windows.Forms.Padding(0);
             this.labelCO2.Name = "labelCO2";
             this.labelCO2.Size = new System.Drawing.Size(143, 77);
@@ -263,11 +207,46 @@
             this.labelCO2.Text = "670";
             this.labelCO2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // serialPort1
+            // 
+            this.serialPort1.RtsEnable = true;
+            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
+            // 
+            // hScrollBar4
+            // 
+            this.hScrollBar4.LargeChange = 1;
+            this.hScrollBar4.Location = new System.Drawing.Point(542, 398);
+            this.hScrollBar4.Maximum = 5000;
+            this.hScrollBar4.Minimum = 400;
+            this.hScrollBar4.Name = "hScrollBar4";
+            this.hScrollBar4.Size = new System.Drawing.Size(427, 22);
+            this.hScrollBar4.TabIndex = 27;
+            this.hScrollBar4.Value = 400;
+            this.hScrollBar4.ValueChanged += new System.EventHandler(this.hScrollBar4_ValueChanged);
+            // 
+            // panel8
+            // 
+            this.panel8.BackgroundImage = global::Weatherdata.Properties.Resources.co2;
+            this.panel8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panel8.Location = new System.Drawing.Point(910, 258);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(90, 92);
+            this.panel8.TabIndex = 37;
+            // 
+            // panel5
+            // 
+            this.panel5.BackgroundImage = global::Weatherdata.Properties.Resources.blink1;
+            this.panel5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panel5.Location = new System.Drawing.Point(8, 272);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(64, 64);
+            this.panel5.TabIndex = 0;
+            // 
             // panel4
             // 
             this.panel4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel4.BackgroundImage")));
             this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel4.Location = new System.Drawing.Point(704, 272);
+            this.panel4.Location = new System.Drawing.Point(671, 272);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(29, 19);
             this.panel4.TabIndex = 36;
@@ -276,7 +255,7 @@
             // 
             this.panel3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel3.BackgroundImage")));
             this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.panel3.Location = new System.Drawing.Point(232, 272);
+            this.panel3.Location = new System.Drawing.Point(278, 272);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(29, 19);
             this.panel3.TabIndex = 35;
@@ -286,18 +265,18 @@
             this.panel7.BackColor = System.Drawing.Color.GreenYellow;
             this.panel7.BackgroundImage = global::Weatherdata.Properties.Resources.co2Geradient;
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel7.Location = new System.Drawing.Point(523, 291);
+            this.panel7.Location = new System.Drawing.Point(542, 291);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(418, 26);
+            this.panel7.Size = new System.Drawing.Size(347, 26);
             this.panel7.TabIndex = 33;
             // 
             // panel6
             // 
             this.panel6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel6.BackgroundImage")));
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel6.Location = new System.Drawing.Point(46, 291);
+            this.panel6.Location = new System.Drawing.Point(91, 291);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(344, 27);
+            this.panel6.Size = new System.Drawing.Size(323, 27);
             this.panel6.TabIndex = 32;
             // 
             // panel2
@@ -327,16 +306,6 @@
             this.panelTemp.Size = new System.Drawing.Size(5, 42);
             this.panelTemp.TabIndex = 22;
             // 
-            // panelHumdFull
-            // 
-            this.panelHumdFull.BackColor = System.Drawing.SystemColors.Control;
-            this.panelHumdFull.BackgroundImage = global::Weatherdata.Properties.Resources.WaterDropletFull1;
-            this.panelHumdFull.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.panelHumdFull.Location = new System.Drawing.Point(945, 78);
-            this.panelHumdFull.Name = "panelHumdFull";
-            this.panelHumdFull.Size = new System.Drawing.Size(41, 80);
-            this.panelHumdFull.TabIndex = 35;
-            // 
             // panelHumdZero
             // 
             this.panelHumdZero.BackColor = System.Drawing.SystemColors.Control;
@@ -347,22 +316,28 @@
             this.panelHumdZero.Size = new System.Drawing.Size(41, 80);
             this.panelHumdZero.TabIndex = 34;
             // 
-            // serialPort1
+            // panelHumdFull
             // 
-            this.serialPort1.RtsEnable = true;
-            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
+            this.panelHumdFull.BackColor = System.Drawing.SystemColors.Control;
+            this.panelHumdFull.BackgroundImage = global::Weatherdata.Properties.Resources.WaterDropletFull1;
+            this.panelHumdFull.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.panelHumdFull.Location = new System.Drawing.Point(945, 78);
+            this.panelHumdFull.Name = "panelHumdFull";
+            this.panelHumdFull.Size = new System.Drawing.Size(41, 80);
+            this.panelHumdFull.TabIndex = 35;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1012, 625);
+            this.Controls.Add(this.panel8);
+            this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel7);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.labPPM);
-            this.Controls.Add(this.hScrollBar5);
             this.Controls.Add(this.labelCO2);
             this.Controls.Add(this.labLUX);
             this.Controls.Add(this.labMMHG);
@@ -371,10 +346,7 @@
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.hScrollBar3);
-            this.Controls.Add(this.hScrollBar2);
             this.Controls.Add(this.labelPress);
-            this.Controls.Add(this.hScrollBar1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -403,19 +375,14 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label labMMHG;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.HScrollBar hScrollBar1;
-        private System.Windows.Forms.HScrollBar hScrollBar2;
         private System.Windows.Forms.Label labelHumd;
-        private System.Windows.Forms.HScrollBar hScrollBar3;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Panel panelTemp;
         private System.Windows.Forms.Label labelLux;
         private System.Windows.Forms.Label labLUX;
-        private System.Windows.Forms.HScrollBar hScrollBar4;
         private System.Windows.Forms.Label labPPM;
-        private System.Windows.Forms.HScrollBar hScrollBar5;
         private System.Windows.Forms.Label labelCO2;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Panel panel7;
@@ -425,6 +392,9 @@
         private System.Windows.Forms.Panel panelHumdFull;
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.HScrollBar hScrollBar4;
+        private System.Windows.Forms.Panel panel8;
     }
 }
 

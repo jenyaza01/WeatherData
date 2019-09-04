@@ -2,8 +2,9 @@
 using System.Drawing;
 using System.IO.Ports;
 using System.Windows.Forms;
+using Weatherdata;
 
-namespace Weatherdata1
+namespace Weatherdata
 {
     public partial class Form1 : Form
     {
@@ -11,6 +12,9 @@ namespace Weatherdata1
         {
             InitializeComponent();
         }
+
+
+        public Form2 m2;
 
         private Graphics g;
         private int luxPosition, pressPosition, co2Position, humdPosition; //labels
@@ -22,9 +26,15 @@ namespace Weatherdata1
             co2Position = labelCO2.Left + labelCO2.Width;
             humdPosition = labelHumd.Left + labelHumd.Width;
 
-            
-            serialPort1.PortName = SerialPort.GetPortNames()[0];
-            serialPort1.Open();
+            try
+            {
+                serialPort1.PortName = SerialPort.GetPortNames()[0];
+                serialPort1.Open();
+            }
+            catch (Exception)
+            {
+                Application.Exit();
+            }
         }
 
 
@@ -55,7 +65,7 @@ namespace Weatherdata1
             panel2.Invalidate();
             Application.DoEvents();
             labelPress.Text = pressValue.ToString("000");
-            button1_Click(null, null); //draw arrow
+            button1_Click(null, null);
             labelPress.Left = pressPosition - labelPress.Width;
         }
 
@@ -105,7 +115,7 @@ namespace Weatherdata1
         {
             labelCO2.Text = co2Value.ToString();
             labelCO2.Left = co2Position - labelCO2.Width;
-            panel4.Left = (int)Math.Round(Math.Log(co2Value - 300) * 89 + 168);
+            panel4.Left = (int)Math.Round(Math.Log(co2Value - 250 ) * 81 + 185);
         }
 
 
@@ -117,12 +127,18 @@ namespace Weatherdata1
             get { return _luxValue; }
             set { _luxValue = value; LuxUpdate(); }
         }
+
+        private void hScrollBar4_ValueChanged(Object sender, EventArgs e)
+        {
+      //      co2Value = hScrollBar4.Value;
+        }
+
         private void LuxUpdate()
         {
             labelLux.Text = luxValue.ToString();
             labelLux.Left = luxPosition - labelLux.Width;
 
-            panel3.Left = (int)Math.Round(Math.Log(luxValue + 5) * 44 - 34);
+            panel3.Left = (int)Math.Round(Math.Log(luxValue + 5) * 42 + 8);
         }
 
 
@@ -138,7 +154,64 @@ namespace Weatherdata1
         {
             if (s[0].Equals('S'))
             {
-                MessageBox.Show(s);
+                Invoke(new Action(() =>
+                {
+                    int index = 1;
+                    while (!s[index].Equals('E'))
+                    {
+                        if (s.Substring(index, 1).Equals("T"))
+                        {
+                            tempValue = Int16.Parse(s.Substring(++index, 3)) / 10f;
+                            index += 3;
+                        }
+
+                        if (s.Substring(index, 1).Equals("H"))
+                        {
+                            humdValue = Int16.Parse(s.Substring(++index, 3)) / 10f;
+                            index += 3;
+                        }
+
+                        if (s.Substring(index, 1).Equals("P"))
+                        {
+                            pressValue = Int16.Parse(s.Substring(++index, 4)) / 10f;
+                            index += 4;
+                        }
+
+                        if (s.Substring(index, 1).Equals("B"))
+                        {
+                            luxValue = Int16.Parse(s.Substring(++index, 4));
+                            index += 4;
+                        }
+
+                        if (s.Substring(index, 1).Equals("C"))
+                        {
+                            co2Value = Int16.Parse(s.Substring(++index, 4));
+                            index += 4;
+                        }
+                        /*
+                        if (s.Substring(index, 1).Equals("S"))
+                        {
+                            co2Value = Int16.Parse(s.Substring(++index, 4));
+                            index += 4;
+                        }
+
+                        if (s.Substring(index, 1).Equals("M"))
+                        {
+                            co2Value = Int16.Parse(s.Substring(++index, 4));
+                            index += 4;
+                        }
+                        if (s.Substring(index, 1).Equals("L"))
+                        {
+                            co2Value = Int16.Parse(s.Substring(++index, 4));
+                            index += 4;
+                        }
+                        if (s.Substring(index, 1).Equals("I"))
+                        {
+                            co2Value = Int16.Parse(s.Substring(++index, 4));
+                            index += 4;
+                        } */
+                    }
+                }));
             }
         }
     }

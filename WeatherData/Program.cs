@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Weatherdata1
+namespace Weatherdata
 {
     static class Program
     {
