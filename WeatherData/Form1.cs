@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.IO.Ports;
 using System.Windows.Forms;
-using Weatherdata;
 
 namespace Weatherdata
 {
@@ -20,6 +19,8 @@ namespace Weatherdata
         private int luxPosition, pressPosition, co2Position, humdPosition; //labels
         private void Form1_Load(Object sender, EventArgs e)
         {
+            m2 = new Form2();
+
             g = panel2.CreateGraphics();
             luxPosition = labelLux.Left + labelLux.Width;
             pressPosition = labelPress.Left + labelPress.Width;
@@ -33,10 +34,15 @@ namespace Weatherdata
             }
             catch (Exception)
             {
-                Application.Exit();
+                //  Application.Exit();
             }
         }
 
+
+        private void button5_Click(Object sender, EventArgs e)
+        {
+            if (m2.Visible) m2.Hide(); else m2.Show();
+        }
 
 
 
@@ -54,6 +60,10 @@ namespace Weatherdata
 
 
 
+        double time { get { return Math.Round(DateTime.Now.Hour + DateTime.Now.Minute / 60f + DateTime.Now.Second / 3600f,3); } }
+
+
+
         private float _pressValue = 770;
         public float pressValue
         {
@@ -67,6 +77,7 @@ namespace Weatherdata
             labelPress.Text = pressValue.ToString("000");
             button1_Click(null, null);
             labelPress.Left = pressPosition - labelPress.Width;
+            m2.chart1.Series["Pressure"].Points.AddXY(time, pressValue);
         }
 
 
@@ -83,6 +94,7 @@ namespace Weatherdata
             labelTemp.Text = tempValue.ToString("00.0°C");
             panelTemp.Top = (int)Math.Round(81 - tempValue * 1.5f);
             panelTemp.Height = (int)Math.Round(tempValue * 1.5f);
+            m2.chart1.Series["Temperature"].Points.AddXY(time, tempValue);
         }
 
 
@@ -99,7 +111,7 @@ namespace Weatherdata
             labelHumd.Text = Math.Round(humdValue).ToString() + "%";
             labelHumd.Left = humdPosition - labelHumd.Width;
             panelHumdZero.Height = (int)Math.Round(73 - humdValue * 0.62);
-
+            m2.chart1.Series["Humidity"].Points.AddXY(time, humdValue);
         }
 
 
@@ -115,7 +127,8 @@ namespace Weatherdata
         {
             labelCO2.Text = co2Value.ToString();
             labelCO2.Left = co2Position - labelCO2.Width;
-            panel4.Left = (int)Math.Round(Math.Log(co2Value - 250 ) * 81 + 185);
+            panel4.Left = (int)Math.Round(Math.Log(co2Value - 250) * 81 + 185);
+            m2.chart1.Series["CO2"].Points.AddXY(time, co2Value);
         }
 
 
@@ -127,18 +140,13 @@ namespace Weatherdata
             get { return _luxValue; }
             set { _luxValue = value; LuxUpdate(); }
         }
-
-        private void hScrollBar4_ValueChanged(Object sender, EventArgs e)
-        {
-      //      co2Value = hScrollBar4.Value;
-        }
-
         private void LuxUpdate()
         {
             labelLux.Text = luxValue.ToString();
             labelLux.Left = luxPosition - labelLux.Width;
 
             panel3.Left = (int)Math.Round(Math.Log(luxValue + 5) * 42 + 8);
+            m2.chart1.Series["Brightness"].Points.AddXY(time, luxValue);
         }
 
 

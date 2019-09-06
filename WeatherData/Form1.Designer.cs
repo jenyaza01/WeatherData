@@ -46,7 +46,8 @@
             this.labelCO2 = new System.Windows.Forms.Label();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.hScrollBar4 = new System.Windows.Forms.HScrollBar();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.panel9 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -64,7 +65,7 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(189, 598);
+            this.button2.Location = new System.Drawing.Point(189, 464);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(73, 25);
             this.button2.TabIndex = 1;
@@ -75,7 +76,7 @@
             // 
             this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(95, 598);
+            this.comboBox1.Location = new System.Drawing.Point(95, 466);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(88, 21);
             this.comboBox1.TabIndex = 2;
@@ -87,20 +88,20 @@
             this.labelTemp.Font = new System.Drawing.Font("Maiandra GD", 53.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTemp.Location = new System.Drawing.Point(50, 78);
             this.labelTemp.Name = "labelTemp";
-            this.labelTemp.Size = new System.Drawing.Size(235, 85);
+            this.labelTemp.Size = new System.Drawing.Size(193, 85);
             this.labelTemp.TabIndex = 5;
-            this.labelTemp.Text = "21.2°C";
+            this.labelTemp.Text = "--.-°C";
             // 
             // labelPress
             // 
             this.labelPress.AutoSize = true;
             this.labelPress.Font = new System.Drawing.Font("Maiandra GD", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPress.Location = new System.Drawing.Point(437, 128);
+            this.labelPress.Location = new System.Drawing.Point(483, 128);
             this.labelPress.Margin = new System.Windows.Forms.Padding(0);
             this.labelPress.Name = "labelPress";
-            this.labelPress.Size = new System.Drawing.Size(141, 77);
+            this.labelPress.Size = new System.Drawing.Size(93, 77);
             this.labelPress.TabIndex = 11;
-            this.labelPress.Text = "745";
+            this.labelPress.Text = "---";
             // 
             // labMMHG
             // 
@@ -115,7 +116,7 @@
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(12, 596);
+            this.button1.Location = new System.Drawing.Point(12, 466);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 14;
@@ -127,16 +128,16 @@
             // 
             this.labelHumd.AutoSize = true;
             this.labelHumd.Font = new System.Drawing.Font("Maiandra GD", 53.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelHumd.Location = new System.Drawing.Point(764, 78);
+            this.labelHumd.Location = new System.Drawing.Point(797, 78);
             this.labelHumd.Name = "labelHumd";
-            this.labelHumd.Size = new System.Drawing.Size(188, 85);
+            this.labelHumd.Size = new System.Drawing.Size(152, 85);
             this.labelHumd.TabIndex = 17;
-            this.labelHumd.Text = "54%";
+            this.labelHumd.Text = "--%";
             // 
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button3.Location = new System.Drawing.Point(411, 552);
+            this.button3.Location = new System.Drawing.Point(399, 464);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(73, 25);
             this.button3.TabIndex = 19;
@@ -146,7 +147,7 @@
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button4.Location = new System.Drawing.Point(835, 552);
+            this.button4.Location = new System.Drawing.Point(842, 441);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(97, 48);
             this.button4.TabIndex = 20;
@@ -156,23 +157,25 @@
             // button5
             // 
             this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button5.Location = new System.Drawing.Point(663, 552);
+            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button5.Location = new System.Drawing.Point(640, 441);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(96, 48);
             this.button5.TabIndex = 21;
-            this.button5.Text = "chart";
+            this.button5.Text = "Графік";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // labelLux
             // 
             this.labelLux.AutoSize = true;
             this.labelLux.Font = new System.Drawing.Font("Maiandra GD", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelLux.Location = new System.Drawing.Point(206, 321);
+            this.labelLux.Location = new System.Drawing.Point(217, 321);
             this.labelLux.Margin = new System.Windows.Forms.Padding(0);
             this.labelLux.Name = "labelLux";
-            this.labelLux.Size = new System.Drawing.Size(105, 77);
+            this.labelLux.Size = new System.Drawing.Size(93, 77);
             this.labelLux.TabIndex = 25;
-            this.labelLux.Text = "96";
+            this.labelLux.Text = "---";
             this.labelLux.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // labLUX
@@ -199,12 +202,12 @@
             // 
             this.labelCO2.AutoSize = true;
             this.labelCO2.Font = new System.Drawing.Font("Maiandra GD", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCO2.Location = new System.Drawing.Point(658, 321);
+            this.labelCO2.Location = new System.Drawing.Point(709, 321);
             this.labelCO2.Margin = new System.Windows.Forms.Padding(0);
             this.labelCO2.Name = "labelCO2";
-            this.labelCO2.Size = new System.Drawing.Size(143, 77);
+            this.labelCO2.Size = new System.Drawing.Size(93, 77);
             this.labelCO2.TabIndex = 29;
-            this.labelCO2.Text = "670";
+            this.labelCO2.Text = "---";
             this.labelCO2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // serialPort1
@@ -212,17 +215,23 @@
             this.serialPort1.RtsEnable = true;
             this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
             // 
-            // hScrollBar4
+            // panel10
             // 
-            this.hScrollBar4.LargeChange = 1;
-            this.hScrollBar4.Location = new System.Drawing.Point(542, 398);
-            this.hScrollBar4.Maximum = 5000;
-            this.hScrollBar4.Minimum = 400;
-            this.hScrollBar4.Name = "hScrollBar4";
-            this.hScrollBar4.Size = new System.Drawing.Size(427, 22);
-            this.hScrollBar4.TabIndex = 27;
-            this.hScrollBar4.Value = 400;
-            this.hScrollBar4.ValueChanged += new System.EventHandler(this.hScrollBar4_ValueChanged);
+            this.panel10.BackgroundImage = global::Weatherdata.Properties.Resources.sun1;
+            this.panel10.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panel10.Location = new System.Drawing.Point(653, 3);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(91, 87);
+            this.panel10.TabIndex = 39;
+            // 
+            // panel9
+            // 
+            this.panel9.BackgroundImage = global::Weatherdata.Properties.Resources.Cloud2;
+            this.panel9.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panel9.Location = new System.Drawing.Point(294, 14);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(96, 55);
+            this.panel9.TabIndex = 38;
             // 
             // panel8
             // 
@@ -235,7 +244,7 @@
             // 
             // panel5
             // 
-            this.panel5.BackgroundImage = global::Weatherdata.Properties.Resources.blink1;
+            this.panel5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel5.BackgroundImage")));
             this.panel5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.panel5.Location = new System.Drawing.Point(8, 272);
             this.panel5.Name = "panel5";
@@ -272,7 +281,7 @@
             // 
             // panel6
             // 
-            this.panel6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel6.BackgroundImage")));
+            this.panel6.BackgroundImage = global::Weatherdata.Properties.Resources.LuxGeradient;
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel6.Location = new System.Drawing.Point(91, 291);
             this.panel6.Name = "panel6";
@@ -330,7 +339,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1012, 625);
+            this.ClientSize = new System.Drawing.Size(1012, 501);
+            this.Controls.Add(this.panel10);
+            this.Controls.Add(this.panel9);
             this.Controls.Add(this.panel8);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel4);
@@ -341,7 +352,6 @@
             this.Controls.Add(this.labelCO2);
             this.Controls.Add(this.labLUX);
             this.Controls.Add(this.labMMHG);
-            this.Controls.Add(this.hScrollBar4);
             this.Controls.Add(this.labelLux);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
@@ -393,8 +403,9 @@
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.HScrollBar hScrollBar4;
         private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Panel panel10;
     }
 }
 

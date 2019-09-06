@@ -73,9 +73,9 @@ namespace Weatherdata.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap blink1 {
+        internal static System.Drawing.Bitmap Cloud2 {
             get {
-                object obj = ResourceManager.GetObject("blink1", resourceCulture);
+                object obj = ResourceManager.GetObject("Cloud2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -96,6 +96,26 @@ namespace Weatherdata.Properties {
         internal static System.Drawing.Bitmap co2Geradient {
             get {
                 object obj = ResourceManager.GetObject("co2Geradient", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LuxGeradient {
+            get {
+                object obj = ResourceManager.GetObject("LuxGeradient", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap sun1 {
+            get {
+                object obj = ResourceManager.GetObject("sun1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

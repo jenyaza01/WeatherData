@@ -118,22 +118,28 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="WaterDropletFull1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\WaterDropletFull1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="co2Geradient" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\co2Geradient.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="sun1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sun1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="WaterDropletSmall" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\WaterDropletSmall.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="blink" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\blink.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="blink1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\blink1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="WaterDropletFull1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WaterDropletFull1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="co2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\co2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="blink" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blink1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LuxGeradient" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LuxGeradient1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="co2Geradient" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\co2Geradient.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cloud2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cloud2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
