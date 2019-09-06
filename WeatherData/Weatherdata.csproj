@@ -122,5 +122,14 @@
   <ItemGroup>
     <None Include="Resources\Cloud2.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PressScale.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PresArrowDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\therm.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

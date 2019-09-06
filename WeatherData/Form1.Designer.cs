@@ -30,14 +30,13 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.button2 = new System.Windows.Forms.Button();
+            this.bConnect = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.labelTemp = new System.Windows.Forms.Label();
             this.labelPress = new System.Windows.Forms.Label();
             this.labMMHG = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.bReload = new System.Windows.Forms.Button();
             this.labelHumd = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.labelLux = new System.Windows.Forms.Label();
@@ -62,25 +61,25 @@
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button2
+            // bConnect
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(189, 464);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(73, 25);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Connect";
-            this.button2.UseVisualStyleBackColor = true;
+            this.bConnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.bConnect.Location = new System.Drawing.Point(184, 471);
+            this.bConnect.Name = "bConnect";
+            this.bConnect.Size = new System.Drawing.Size(73, 25);
+            this.bConnect.TabIndex = 1;
+            this.bConnect.Text = "Connect";
+            this.bConnect.UseVisualStyleBackColor = true;
+            this.bConnect.Click += new System.EventHandler(this.button2_Click);
             // 
             // comboBox1
             // 
             this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(95, 466);
+            this.comboBox1.Location = new System.Drawing.Point(90, 473);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(88, 21);
             this.comboBox1.TabIndex = 2;
-            this.comboBox1.Text = "COM";
             // 
             // labelTemp
             // 
@@ -96,7 +95,7 @@
             // 
             this.labelPress.AutoSize = true;
             this.labelPress.Font = new System.Drawing.Font("Maiandra GD", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPress.Location = new System.Drawing.Point(483, 128);
+            this.labelPress.Location = new System.Drawing.Point(482, 128);
             this.labelPress.Margin = new System.Windows.Forms.Padding(0);
             this.labelPress.Name = "labelPress";
             this.labelPress.Size = new System.Drawing.Size(93, 77);
@@ -113,16 +112,16 @@
             this.labMMHG.TabIndex = 13;
             this.labMMHG.Text = "mm Hg";
             // 
-            // button1
+            // bReload
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(12, 466);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "reload";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.bReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.bReload.Location = new System.Drawing.Point(7, 473);
+            this.bReload.Name = "bReload";
+            this.bReload.Size = new System.Drawing.Size(75, 23);
+            this.bReload.TabIndex = 14;
+            this.bReload.Text = "reload";
+            this.bReload.UseVisualStyleBackColor = true;
+            this.bReload.Click += new System.EventHandler(this.button1_Click);
             // 
             // labelHumd
             // 
@@ -134,20 +133,11 @@
             this.labelHumd.TabIndex = 17;
             this.labelHumd.Text = "--%";
             // 
-            // button3
-            // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button3.Location = new System.Drawing.Point(399, 464);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(73, 25);
-            this.button3.TabIndex = 19;
-            this.button3.Text = "button1";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button4.Location = new System.Drawing.Point(842, 441);
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button4.Location = new System.Drawing.Point(842, 450);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(97, 48);
             this.button4.TabIndex = 20;
@@ -158,7 +148,7 @@
             // 
             this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button5.Location = new System.Drawing.Point(640, 441);
+            this.button5.Location = new System.Drawing.Point(469, 448);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(96, 48);
             this.button5.TabIndex = 21;
@@ -219,18 +209,18 @@
             // 
             this.panel10.BackgroundImage = global::Weatherdata.Properties.Resources.sun1;
             this.panel10.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panel10.Location = new System.Drawing.Point(653, 3);
+            this.panel10.Location = new System.Drawing.Point(649, 32);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(91, 87);
+            this.panel10.Size = new System.Drawing.Size(52, 52);
             this.panel10.TabIndex = 39;
             // 
             // panel9
             // 
             this.panel9.BackgroundImage = global::Weatherdata.Properties.Resources.Cloud2;
             this.panel9.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panel9.Location = new System.Drawing.Point(294, 14);
+            this.panel9.Location = new System.Drawing.Point(332, 41);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(96, 55);
+            this.panel9.Size = new System.Drawing.Size(60, 32);
             this.panel9.TabIndex = 38;
             // 
             // panel8
@@ -246,14 +236,14 @@
             // 
             this.panel5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel5.BackgroundImage")));
             this.panel5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panel5.Location = new System.Drawing.Point(8, 272);
+            this.panel5.Location = new System.Drawing.Point(11, 272);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(64, 64);
+            this.panel5.Size = new System.Drawing.Size(60, 60);
             this.panel5.TabIndex = 0;
             // 
             // panel4
             // 
-            this.panel4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel4.BackgroundImage")));
+            this.panel4.BackgroundImage = global::Weatherdata.Properties.Resources.PresArrowDown;
             this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel4.Location = new System.Drawing.Point(671, 272);
             this.panel4.Name = "panel4";
@@ -262,7 +252,7 @@
             // 
             // panel3
             // 
-            this.panel3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel3.BackgroundImage")));
+            this.panel3.BackgroundImage = global::Weatherdata.Properties.Resources.PresArrowDown;
             this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel3.Location = new System.Drawing.Point(278, 272);
             this.panel3.Name = "panel3";
@@ -290,7 +280,7 @@
             // 
             // panel2
             // 
-            this.panel2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel2.BackgroundImage")));
+            this.panel2.BackgroundImage = global::Weatherdata.Properties.Resources.PressScale;
             this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.panel2.Location = new System.Drawing.Point(336, 58);
             this.panel2.Name = "panel2";
@@ -299,7 +289,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel1.BackgroundImage")));
+            this.panel1.BackgroundImage = global::Weatherdata.Properties.Resources.therm;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.panel1.Controls.Add(this.panelTemp);
             this.panel1.Location = new System.Drawing.Point(12, 59);
@@ -355,17 +345,17 @@
             this.Controls.Add(this.labelLux);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
             this.Controls.Add(this.labelPress);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.bReload);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelTemp);
             this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.bConnect);
             this.Controls.Add(this.panelHumdZero);
             this.Controls.Add(this.panelHumdFull);
             this.Controls.Add(this.labelHumd);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -377,16 +367,15 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button bConnect;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label labelTemp;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label labelPress;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label labMMHG;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button bReload;
         private System.Windows.Forms.Label labelHumd;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Panel panelTemp;

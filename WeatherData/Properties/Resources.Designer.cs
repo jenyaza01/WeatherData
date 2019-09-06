@@ -113,9 +113,39 @@ namespace Weatherdata.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap PresArrowDown {
+            get {
+                object obj = ResourceManager.GetObject("PresArrowDown", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PressScale {
+            get {
+                object obj = ResourceManager.GetObject("PressScale", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap sun1 {
             get {
                 object obj = ResourceManager.GetObject("sun1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap therm {
+            get {
+                object obj = ResourceManager.GetObject("therm", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

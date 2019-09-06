@@ -27,17 +27,30 @@ namespace Weatherdata
             co2Position = labelCO2.Left + labelCO2.Width;
             humdPosition = labelHumd.Left + labelHumd.Width;
 
-            try
-            {
-                serialPort1.PortName = SerialPort.GetPortNames()[0];
-                serialPort1.Open();
-            }
-            catch (Exception)
-            {
-                //  Application.Exit();
-            }
+            refreshCOMPorts();
+
         }
 
+        private void refreshCOMPorts()
+        {
+            string[] ComPortList = SerialPort.GetPortNames();
+            comboBox1.Items.Clear();
+            comboBox1.Items.AddRange(ComPortList);
+
+            if (comboBox1.Items.Count == 0)
+            {
+                comboBox1.Items.Add("no COM ports");
+                comboBox1.Enabled = false;
+                bConnect.Enabled = false;
+            }
+            else
+            {
+                bConnect.Enabled = true;
+                comboBox1.Enabled = true;
+            }
+
+            comboBox1.SelectedIndex = 0;
+        }
 
         private void button5_Click(Object sender, EventArgs e)
         {
@@ -48,6 +61,11 @@ namespace Weatherdata
 
         private void button1_Click(Object sender, EventArgs e) // draw arrow for pressure
         {
+            refreshCOMPorts();
+        }
+
+        private void drawPressureArrow()
+        {
             Point p = new Point();
             if (pressValue < 745)
                 p.X = (int)Math.Round(0.0500037031 * Math.Pow(pressValue, 2) - 66.5063538402 * pressValue + 21975.2919826508);
@@ -57,10 +75,7 @@ namespace Weatherdata
             g.DrawLine(new Pen(Color.Gray, 3), p, new Point(180, 220));
         }
 
-
-
-
-        double time { get { return Math.Round(DateTime.Now.Hour + DateTime.Now.Minute / 60f + DateTime.Now.Second / 3600f,3); } }
+        private double time { get { return Math.Round(DateTime.Now.Hour + DateTime.Now.Minute / 60f + DateTime.Now.Second / 3600f, 3); } }
 
 
 
@@ -75,7 +90,7 @@ namespace Weatherdata
             panel2.Invalidate();
             Application.DoEvents();
             labelPress.Text = pressValue.ToString("000");
-            button1_Click(null, null);
+            drawPressureArrow();
             labelPress.Left = pressPosition - labelPress.Width;
             m2.chart1.Series["Pressure"].Points.AddXY(time, pressValue);
         }
@@ -140,6 +155,20 @@ namespace Weatherdata
             get { return _luxValue; }
             set { _luxValue = value; LuxUpdate(); }
         }
+
+        private void button2_Click(Object sender, EventArgs e)
+        {
+            try
+            {
+                serialPort1.PortName = comboBox1.Text;
+                serialPort1.Open();
+            }
+            catch (Exception)
+            {
+                //  Application.Exit();
+            }
+        }
+
         private void LuxUpdate()
         {
             labelLux.Text = luxValue.ToString();
