@@ -138,9 +138,9 @@
 			// 
 			this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.button4.Location = new System.Drawing.Point(846, 460);
+			this.button4.Location = new System.Drawing.Point(569, 446);
 			this.button4.Name = "button4";
-			this.button4.Size = new System.Drawing.Size(154, 37);
+			this.button4.Size = new System.Drawing.Size(146, 48);
 			this.button4.TabIndex = 20;
 			this.button4.Text = "settings";
 			this.button4.UseVisualStyleBackColor = true;
@@ -150,9 +150,9 @@
 			// 
 			this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.button5.Location = new System.Drawing.Point(465, 447);
+			this.button5.Location = new System.Drawing.Point(379, 446);
 			this.button5.Name = "button5";
-			this.button5.Size = new System.Drawing.Size(96, 48);
+			this.button5.Size = new System.Drawing.Size(177, 48);
 			this.button5.TabIndex = 21;
 			this.button5.Text = "Графік";
 			this.button5.UseVisualStyleBackColor = true;
@@ -211,9 +211,9 @@
 			// 
 			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.button1.Location = new System.Drawing.Point(585, 446);
+			this.button1.Location = new System.Drawing.Point(435, 239);
 			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(96, 48);
+			this.button1.Size = new System.Drawing.Size(74, 29);
 			this.button1.TabIndex = 40;
 			this.button1.Text = "Random data";
 			this.button1.UseVisualStyleBackColor = true;
