@@ -1,30 +1,25 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Weatherdata
 {
-	public partial class FormSettings : Form
+	internal partial class FormSettings : Form
 	{
 
-		//y = Ax + B
-		public float TempFixA = 1f, TempFixB = 0f;
-		public float HumdFixA = 1f, HumdFixB = 0f;
-		public float PresFixA = 1f, PresFixB = 0f;
-		public float BrtnFixA = 1f, BrtnFixB = 0f;
-		public float CO2FixA = 1f, CO2FixB = 0f;
-		public float IonFixA = 1f, IonFixB = 0f;
+		//y = Ax + B, for calibrating
+		internal float TempFixA = 1f, TempFixB = 0f;
+		internal float HumdFixA = 1f, HumdFixB = 0f;
+		internal float PresFixA = 1f, PresFixB = 0f;
+		internal float BrtnFixA = 1f, BrtnFixB = 0f;
+		internal float CO2FixA = 1f, CO2FixB = 0f;
+		internal float IonFixA = 1f, IonFixB = 0f;
 
 
 
-
-		public FormSettings()
+		internal FormSettings()
 		{
 			InitializeComponent();
-		}
-
-		private void cTemp_CheckedChanged(object sender, EventArgs e)
-		{
-			updatePanel();
 		}
 
 		private void FormSettings_FormClosing(object sender, FormClosingEventArgs e)
@@ -33,71 +28,44 @@ namespace Weatherdata
 			Hide();
 		}
 
-		private void FormSettings_Load(object sender, EventArgs e)
-		{
-			/*
-				cbTempPeriod.SelectedIndex = 1;
-				cbHumidPeriod.SelectedIndex = 1;
-				cbPressPeriod.SelectedIndex = 1;
-				cbBrightPeriod.SelectedIndex = 1;
-				cbIonPeriod.SelectedIndex = 1;
-				cbCO2Period.SelectedIndex = 1;
+		internal bool isRecordingEnabled = false;
+		internal bool hasToRecord = false;
 
-				cbTempPeriod.Enabled = false;
-				cbHumidPeriod.Enabled = false;
-				cbPressPeriod.Enabled = false;
-				cbBrightPeriod.Enabled = false;
-				cbIonPeriod.Enabled = false;
-				cbCO2Period.Enabled = false; */
-		}
-
-		private void cHumid_CheckedChanged(object sender, EventArgs e)
-		{
-			//	cbHumidPeriod.Enabled = cHumid.Checked;
-			updatePanel();
-		}
-
-		private void cPressure_CheckedChanged(object sender, EventArgs e)
-		{
-			//	cbPressPeriod.Enabled = cPressure.Checked;
-			updatePanel();
-		}
-
-		private void cBrightness_CheckedChanged(object sender, EventArgs e)
-		{
-			//	cbBrightPeriod.Enabled = cBrightness.Checked;
-			updatePanel();
-		}
-
-		private void cCO2_CheckedChanged(object sender, EventArgs e)
-		{
-			//	cbCO2Period.Enabled = cCO2.Checked;
-			updatePanel();
-		}
-
-		private void cIon_CheckedChanged(object sender, EventArgs e)
-		{
-			//	cbIonPeriod.Enabled = cIon.Checked;
-			updatePanel();
-		}
-
-
-		public bool isRecordingEnabled = false;
-		private void updatePanel()
+		private void UpdHasToRecordState()
 		{
 			if (cTemp.Checked || cHumid.Checked || cPressure.Checked || cBrightness.Checked || cCO2.Checked || cIon.Checked)
+				hasToRecord = true;
+			else hasToRecord = false;
+			UpdateButtonColor();
+		}
+
+		internal void UpdRecordingState()
+		{
+			if (!isRecordingEnabled && hasToRecord)
 			{
 				isRecordingEnabled = true;
-				Text = "Settings +";
+				UpdateButtonColor();
 			}
 			else
 			{
 				isRecordingEnabled = false;
-				Text = "Settings -";
+				UpdateButtonColor();
 			}
 		}
 
-		private void FixChanged(object sender, EventArgs e)
+		internal void UpdateButtonColor()
+		{
+			if (!parentForm.serialPort1.IsOpen)
+				bSetMeasureTime.BackColor = Color.DimGray;
+			else if (!hasToRecord)
+				bSetMeasureTime.BackColor = Color.DarkRed;
+			else if (!isRecordingEnabled)
+				bSetMeasureTime.BackColor = Color.Salmon;
+			else bSetMeasureTime.BackColor = Color.LimeGreen;
+		}
+
+
+		private void FixChanged(object sender, EventArgs e) //apply calibrating
 		{
 			TextBox tb = sender as TextBox;
 			string s = tb.Text.Replace(".", ",");
@@ -123,30 +91,85 @@ namespace Weatherdata
 
 				default: throw new NotImplementedException($"Name {tb.Name} unlisted here");
 			}
-
 		}
 
 		private volatile int measureTimeMinutes = 0;
-		private void bMeasureTime_Click(object sender, EventArgs e)
+		private void bSetMeasureTime_Click(object sender, EventArgs e)
 		{
-			if (radioButtonMinutes2.Checked)
-				measureTimeMinutes = (int)numMeasureTime.Value;
-			else measureTimeMinutes = (int)numMeasureTime.Value * 60;
-			parentForm.comSend("E1"); //enable, in case it was disabled
-			timer1.Start();
+			if (parentForm.serialPort1.IsOpen)
+				if (hasToRecord)
+					if (!isRecordingEnabled)
+					{
+						timer1.Stop();
+						if (radioButtonMinutes2.Checked)
+							measureTimeMinutes = (int)numMeasureTime.Value;
+						else measureTimeMinutes = (int)numMeasureTime.Value * 60;
+
+						UpdRecordingState(); // this update isRecordingEnabled to true color to green
+						int hours = measureTimeMinutes / 60;
+						int min = measureTimeMinutes - (hours * 60);
+						bSetMeasureTime.Text = $"Встановити ({hours}:{min})";
+
+						timer1.Start();
+					}
+					else
+					{
+						timer1.Stop();
+						UpdRecordingState(); // this update isRecordingEnabled to false and color to redish
+						bSetMeasureTime.Text = $"Встановити (00:00)";
+					}
+				else
+				{
+					isRecordingEnabled = false; // just in case
+					MessageBox.Show("Оберіть необхідні покази для запису");
+					bSetMeasureTime.Text = $"Встановити (00:00)";
+				}
+			else
+			{
+				isRecordingEnabled = false; // just in case
+				MessageBox.Show("Не підключено до пристрою через SerialPort");
+				bSetMeasureTime.Text = $"Встановити (00:00)";
+			}
+		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			if (Width == 630)
+				Width = 341;
+			else Width = 630;
+		}
+
+		private void DataSource_CheckedChanged(object sender, EventArgs e)
+		{
+			UpdHasToRecordState();
+		}
+
+		private void FormSettings_Load(object sender, EventArgs e)
+		{
+			UpdateButtonColor();
 		}
 
 		private void timer1_Tick(object sender, EventArgs e)
 		{
 			if (measureTimeMinutes == 1)
 			{
-				parentForm.comSend("E0"); //disable sending
+				UpdRecordingState();
 				timer1.Stop();
+
+				if (isRecordingEnabled)
+				{
+					cTemp.Checked = false;
+					cHumid.Checked = false;
+					cPressure.Checked = false;
+					cBrightness.Checked = false;
+					cCO2.Checked = false;
+					cIon.Checked = false;
+				}
 			}
 			measureTimeMinutes--;
-			var hours = measureTimeMinutes / 60;
-			var min = measureTimeMinutes - (hours * 60);
-			bMeasureTime.Text = $"Встановити ({hours}:{min})";
+			int hours = measureTimeMinutes / 60;
+			int min = measureTimeMinutes - (hours * 60);
+			bSetMeasureTime.Text = $"Встановити ({hours}:{"min:00"})";
 		}
 
 		private int reloadTime;
@@ -160,24 +183,23 @@ namespace Weatherdata
 		private void numericUpDown1_ValueChanged(object sender, EventArgs e)
 		{
 			if (radioButtonSeconds.Checked)
-				if (numRefRate.Value < 15)
-					numRefRate.Value = 15;
+				if (numRefRate.Value < 10)
+					numRefRate.Value = 10;
 		}
 
-		public Form1 parentForm;
+		internal Form1 parentForm;
 		private void SendReloadPeriod()
 		{
 			reloadTime = (int)numRefRate.Value;
 			if (radioButtMinutes.Checked)
 				reloadTime *= 60;
-			parentForm.comSend("R" + reloadTime.ToString());
+			parentForm.serialPort1.WriteLine("R" + reloadTime.ToString());
 		}
 
-		private void bRefRate_Click(object sender, EventArgs e)
-		{
-			SendReloadPeriod();
-			string s = radioButtMinutes.Checked ? "хв" : "сек";
-			bRefRate.Text = $"Встановити ({numRefRate.Value} {s})";
-		}
+		/*	private void bRefRate_Click(object sender, EventArgs e)
+			{
+				string s = radioButtMinutes.Checked ? "хв" : "сек";
+				bRefRate.Text = $"Встановити ({numRefRate.Value} {s})";
+			} */
 	}
 }

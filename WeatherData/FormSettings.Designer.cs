@@ -36,16 +36,16 @@
 			this.cCO2 = new System.Windows.Forms.CheckBox();
 			this.cBrightness = new System.Windows.Forms.CheckBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.cDust = new System.Windows.Forms.CheckBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.radioButtMinutes = new System.Windows.Forms.RadioButton();
 			this.radioButtonSeconds = new System.Windows.Forms.RadioButton();
 			this.numRefRate = new System.Windows.Forms.NumericUpDown();
-			this.bRefRate = new System.Windows.Forms.Button();
 			this.numMeasureTime = new System.Windows.Forms.NumericUpDown();
 			this.label2 = new System.Windows.Forms.Label();
 			this.radioButtonHours2 = new System.Windows.Forms.RadioButton();
 			this.radioButtonMinutes2 = new System.Windows.Forms.RadioButton();
-			this.bMeasureTime = new System.Windows.Forms.Button();
+			this.bSetMeasureTime = new System.Windows.Forms.Button();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.button3 = new System.Windows.Forms.Button();
 			this.label8 = new System.Windows.Forms.Label();
@@ -68,11 +68,14 @@
 			this.TempA = new System.Windows.Forms.TextBox();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
+			this.panel2 = new System.Windows.Forms.Panel();
+			this.bShowMore = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numRefRate)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numMeasureTime)).BeginInit();
 			this.groupBox2.SuspendLayout();
 			this.panel1.SuspendLayout();
+			this.panel2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// cTemp
@@ -85,7 +88,7 @@
 			this.cTemp.TabIndex = 0;
 			this.cTemp.Text = "Температура";
 			this.cTemp.UseVisualStyleBackColor = true;
-			this.cTemp.CheckedChanged += new System.EventHandler(this.cTemp_CheckedChanged);
+			this.cTemp.CheckedChanged += new System.EventHandler(this.DataSource_CheckedChanged);
 			// 
 			// cHumid
 			// 
@@ -97,19 +100,19 @@
 			this.cHumid.TabIndex = 2;
 			this.cHumid.Text = "Вологість";
 			this.cHumid.UseVisualStyleBackColor = true;
-			this.cHumid.CheckedChanged += new System.EventHandler(this.cHumid_CheckedChanged);
+			this.cHumid.CheckedChanged += new System.EventHandler(this.DataSource_CheckedChanged);
 			// 
 			// cIon
 			// 
 			this.cIon.AutoSize = true;
 			this.cIon.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.cIon.Location = new System.Drawing.Point(6, 150);
+			this.cIon.Location = new System.Drawing.Point(18, 178);
 			this.cIon.Name = "cIon";
 			this.cIon.Size = new System.Drawing.Size(101, 19);
 			this.cIon.TabIndex = 4;
 			this.cIon.Text = "Іонний заряд";
 			this.cIon.UseVisualStyleBackColor = true;
-			this.cIon.CheckedChanged += new System.EventHandler(this.cIon_CheckedChanged);
+			this.cIon.CheckedChanged += new System.EventHandler(this.DataSource_CheckedChanged);
 			// 
 			// cPressure
 			// 
@@ -121,7 +124,7 @@
 			this.cPressure.TabIndex = 4;
 			this.cPressure.Text = "Атм. тиск";
 			this.cPressure.UseVisualStyleBackColor = true;
-			this.cPressure.CheckedChanged += new System.EventHandler(this.cPressure_CheckedChanged);
+			this.cPressure.CheckedChanged += new System.EventHandler(this.DataSource_CheckedChanged);
 			// 
 			// cCO2
 			// 
@@ -133,7 +136,7 @@
 			this.cCO2.TabIndex = 4;
 			this.cCO2.Text = "Вміст CO2";
 			this.cCO2.UseVisualStyleBackColor = true;
-			this.cCO2.CheckedChanged += new System.EventHandler(this.cCO2_CheckedChanged);
+			this.cCO2.CheckedChanged += new System.EventHandler(this.DataSource_CheckedChanged);
 			// 
 			// cBrightness
 			// 
@@ -145,55 +148,67 @@
 			this.cBrightness.TabIndex = 4;
 			this.cBrightness.Text = "Яскравість";
 			this.cBrightness.UseVisualStyleBackColor = true;
-			this.cBrightness.CheckedChanged += new System.EventHandler(this.cBrightness_CheckedChanged);
+			this.cBrightness.CheckedChanged += new System.EventHandler(this.DataSource_CheckedChanged);
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.cDust);
 			this.groupBox1.Controls.Add(this.cHumid);
-			this.groupBox1.Controls.Add(this.cIon);
 			this.groupBox1.Controls.Add(this.cTemp);
 			this.groupBox1.Controls.Add(this.cPressure);
 			this.groupBox1.Controls.Add(this.cBrightness);
 			this.groupBox1.Controls.Add(this.cCO2);
 			this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.groupBox1.Location = new System.Drawing.Point(167, 12);
+			this.groupBox1.Location = new System.Drawing.Point(12, 6);
 			this.groupBox1.Name = "groupBox1";
 			this.groupBox1.Size = new System.Drawing.Size(148, 176);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Запис вимірювань";
 			// 
+			// cDust
+			// 
+			this.cDust.AutoSize = true;
+			this.cDust.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.cDust.Location = new System.Drawing.Point(6, 148);
+			this.cDust.Name = "cDust";
+			this.cDust.Size = new System.Drawing.Size(49, 19);
+			this.cDust.TabIndex = 14;
+			this.cDust.Text = "Пил";
+			this.cDust.UseVisualStyleBackColor = true;
+			this.cDust.CheckedChanged += new System.EventHandler(this.DataSource_CheckedChanged);
+			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
 			this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.label1.Location = new System.Drawing.Point(12, 3);
+			this.label1.Location = new System.Drawing.Point(17, 3);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(53, 16);
+			this.label1.Size = new System.Drawing.Size(101, 16);
 			this.label1.TabIndex = 6;
-			this.label1.Text = "Період";
+			this.label1.Text = "Періодичність";
 			// 
 			// radioButtMinutes
 			// 
 			this.radioButtMinutes.AutoSize = true;
-			this.radioButtMinutes.Checked = true;
 			this.radioButtMinutes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.radioButtMinutes.Location = new System.Drawing.Point(87, 22);
 			this.radioButtMinutes.Name = "radioButtMinutes";
 			this.radioButtMinutes.Size = new System.Drawing.Size(40, 20);
 			this.radioButtMinutes.TabIndex = 9;
-			this.radioButtMinutes.TabStop = true;
 			this.radioButtMinutes.Text = "хв";
 			this.radioButtMinutes.UseVisualStyleBackColor = true;
 			// 
 			// radioButtonSeconds
 			// 
 			this.radioButtonSeconds.AutoSize = true;
+			this.radioButtonSeconds.Checked = true;
 			this.radioButtonSeconds.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.radioButtonSeconds.Location = new System.Drawing.Point(87, 44);
 			this.radioButtonSeconds.Name = "radioButtonSeconds";
 			this.radioButtonSeconds.Size = new System.Drawing.Size(48, 20);
 			this.radioButtonSeconds.TabIndex = 10;
+			this.radioButtonSeconds.TabStop = true;
 			this.radioButtonSeconds.Text = "сек";
 			this.radioButtonSeconds.UseVisualStyleBackColor = true;
 			this.radioButtonSeconds.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
@@ -216,27 +231,16 @@
 			this.numRefRate.Size = new System.Drawing.Size(53, 24);
 			this.numRefRate.TabIndex = 5;
 			this.numRefRate.Value = new decimal(new int[] {
-            1,
+            10,
             0,
             0,
             0});
 			this.numRefRate.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
 			// 
-			// bRefRate
-			// 
-			this.bRefRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.bRefRate.Location = new System.Drawing.Point(2, 70);
-			this.bRefRate.Name = "bRefRate";
-			this.bRefRate.Size = new System.Drawing.Size(137, 31);
-			this.bRefRate.TabIndex = 11;
-			this.bRefRate.Text = "Встановити (1 хв)";
-			this.bRefRate.UseVisualStyleBackColor = true;
-			this.bRefRate.Click += new System.EventHandler(this.bRefRate_Click);
-			// 
 			// numMeasureTime
 			// 
 			this.numMeasureTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.numMeasureTime.Location = new System.Drawing.Point(11, 146);
+			this.numMeasureTime.Location = new System.Drawing.Point(6, 37);
 			this.numMeasureTime.Maximum = new decimal(new int[] {
             60,
             0,
@@ -261,7 +265,7 @@
 			// 
 			this.label2.AutoSize = true;
 			this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.label2.Location = new System.Drawing.Point(12, 118);
+			this.label2.Location = new System.Drawing.Point(7, 9);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(120, 16);
 			this.label2.TabIndex = 6;
@@ -272,7 +276,7 @@
 			this.radioButtonHours2.AutoSize = true;
 			this.radioButtonHours2.Checked = true;
 			this.radioButtonHours2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.radioButtonHours2.Location = new System.Drawing.Point(87, 137);
+			this.radioButtonHours2.Location = new System.Drawing.Point(82, 28);
 			this.radioButtonHours2.Name = "radioButtonHours2";
 			this.radioButtonHours2.Size = new System.Drawing.Size(48, 20);
 			this.radioButtonHours2.TabIndex = 9;
@@ -284,7 +288,7 @@
 			// 
 			this.radioButtonMinutes2.AutoSize = true;
 			this.radioButtonMinutes2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.radioButtonMinutes2.Location = new System.Drawing.Point(87, 159);
+			this.radioButtonMinutes2.Location = new System.Drawing.Point(82, 50);
 			this.radioButtonMinutes2.Name = "radioButtonMinutes2";
 			this.radioButtonMinutes2.Size = new System.Drawing.Size(40, 20);
 			this.radioButtonMinutes2.TabIndex = 10;
@@ -292,15 +296,16 @@
 			this.radioButtonMinutes2.UseVisualStyleBackColor = true;
 			this.radioButtonMinutes2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
 			// 
-			// bMeasureTime
+			// bSetMeasureTime
 			// 
-			this.bMeasureTime.Location = new System.Drawing.Point(3, 185);
-			this.bMeasureTime.Name = "bMeasureTime";
-			this.bMeasureTime.Size = new System.Drawing.Size(134, 31);
-			this.bMeasureTime.TabIndex = 11;
-			this.bMeasureTime.Text = "Встановити (00:00)";
-			this.bMeasureTime.UseVisualStyleBackColor = true;
-			this.bMeasureTime.Click += new System.EventHandler(this.bMeasureTime_Click);
+			this.bSetMeasureTime.BackColor = System.Drawing.Color.Red;
+			this.bSetMeasureTime.Location = new System.Drawing.Point(4, 76);
+			this.bSetMeasureTime.Name = "bSetMeasureTime";
+			this.bSetMeasureTime.Size = new System.Drawing.Size(134, 31);
+			this.bSetMeasureTime.TabIndex = 11;
+			this.bSetMeasureTime.Text = "Встановити (00:00)";
+			this.bSetMeasureTime.UseVisualStyleBackColor = false;
+			this.bSetMeasureTime.Click += new System.EventHandler(this.bSetMeasureTime_Click);
 			// 
 			// groupBox2
 			// 
@@ -324,7 +329,7 @@
 			this.groupBox2.Controls.Add(this.HumdA);
 			this.groupBox2.Controls.Add(this.TempA);
 			this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.groupBox2.Location = new System.Drawing.Point(333, 12);
+			this.groupBox2.Location = new System.Drawing.Point(359, 6);
 			this.groupBox2.Name = "groupBox2";
 			this.groupBox2.Size = new System.Drawing.Size(251, 213);
 			this.groupBox2.TabIndex = 5;
@@ -524,32 +529,52 @@
 			// 
 			this.panel1.Controls.Add(this.numRefRate);
 			this.panel1.Controls.Add(this.label1);
-			this.panel1.Controls.Add(this.bMeasureTime);
-			this.panel1.Controls.Add(this.numMeasureTime);
-			this.panel1.Controls.Add(this.radioButtonMinutes2);
 			this.panel1.Controls.Add(this.radioButtMinutes);
-			this.panel1.Controls.Add(this.bRefRate);
-			this.panel1.Controls.Add(this.label2);
-			this.panel1.Controls.Add(this.radioButtonHours2);
 			this.panel1.Controls.Add(this.radioButtonSeconds);
-			this.panel1.Location = new System.Drawing.Point(12, 12);
+			this.panel1.Location = new System.Drawing.Point(166, 13);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(140, 220);
+			this.panel1.Size = new System.Drawing.Size(140, 66);
 			this.panel1.TabIndex = 5;
 			// 
 			// timer1
 			// 
-			this.timer1.Interval = 1000;
+			this.timer1.Interval = 60000;
 			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+			// 
+			// panel2
+			// 
+			this.panel2.Controls.Add(this.label2);
+			this.panel2.Controls.Add(this.radioButtonHours2);
+			this.panel2.Controls.Add(this.radioButtonMinutes2);
+			this.panel2.Controls.Add(this.bSetMeasureTime);
+			this.panel2.Controls.Add(this.numMeasureTime);
+			this.panel2.Location = new System.Drawing.Point(166, 85);
+			this.panel2.Name = "panel2";
+			this.panel2.Size = new System.Drawing.Size(148, 112);
+			this.panel2.TabIndex = 12;
+			// 
+			// bShowMore
+			// 
+			this.bShowMore.Location = new System.Drawing.Point(21, 217);
+			this.bShowMore.Name = "bShowMore";
+			this.bShowMore.Size = new System.Drawing.Size(83, 29);
+			this.bShowMore.TabIndex = 13;
+			this.bShowMore.Text = ">>>";
+			this.bShowMore.UseVisualStyleBackColor = true;
+			this.bShowMore.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// FormSettings
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(616, 237);
+			this.ClientSize = new System.Drawing.Size(325, 258);
+			this.Controls.Add(this.bShowMore);
+			this.Controls.Add(this.cIon);
+			this.Controls.Add(this.panel2);
 			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Name = "FormSettings";
 			this.Text = "Settings -";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormSettings_FormClosing);
@@ -562,7 +587,10 @@
 			this.groupBox2.PerformLayout();
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
+			this.panel2.ResumeLayout(false);
+			this.panel2.PerformLayout();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -579,12 +607,10 @@
 		private System.Windows.Forms.RadioButton radioButtMinutes;
 		private System.Windows.Forms.RadioButton radioButtonSeconds;
 		public System.Windows.Forms.NumericUpDown numRefRate;
-		private System.Windows.Forms.Button bRefRate;
 		public System.Windows.Forms.NumericUpDown numMeasureTime;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.RadioButton radioButtonHours2;
 		private System.Windows.Forms.RadioButton radioButtonMinutes2;
-		private System.Windows.Forms.Button bMeasureTime;
 		public System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.TextBox IonB;
 		private System.Windows.Forms.TextBox CO2B;
@@ -607,5 +633,9 @@
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.Button button3;
 		private System.Windows.Forms.Timer timer1;
+		private System.Windows.Forms.Panel panel2;
+		private System.Windows.Forms.Button bShowMore;
+		public System.Windows.Forms.CheckBox cDust;
+		internal System.Windows.Forms.Button bSetMeasureTime;
 	}
 }

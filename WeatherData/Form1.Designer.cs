@@ -37,7 +37,7 @@
 			this.labMMHG = new System.Windows.Forms.Label();
 			this.bReload = new System.Windows.Forms.Button();
 			this.labelHumd = new System.Windows.Forms.Label();
-			this.button4 = new System.Windows.Forms.Button();
+			this.bSettings = new System.Windows.Forms.Button();
 			this.button5 = new System.Windows.Forms.Button();
 			this.labelLux = new System.Windows.Forms.Label();
 			this.labLUX = new System.Windows.Forms.Label();
@@ -50,8 +50,8 @@
 			this.panel9 = new System.Windows.Forms.Panel();
 			this.panel8 = new System.Windows.Forms.Panel();
 			this.panel5 = new System.Windows.Forms.Panel();
-			this.panel4 = new System.Windows.Forms.Panel();
-			this.panel3 = new System.Windows.Forms.Panel();
+			this.panelCO2 = new System.Windows.Forms.Panel();
+			this.panelLux = new System.Windows.Forms.Panel();
 			this.panel7 = new System.Windows.Forms.Panel();
 			this.panel6 = new System.Windows.Forms.Panel();
 			this.panel2 = new System.Windows.Forms.Panel();
@@ -71,7 +71,7 @@
 			this.bConnect.TabIndex = 1;
 			this.bConnect.Text = "Connect";
 			this.bConnect.UseVisualStyleBackColor = true;
-			this.bConnect.Click += new System.EventHandler(this.button2_Click);
+			this.bConnect.Click += new System.EventHandler(this.bConnect_Click);
 			// 
 			// comboBox1
 			// 
@@ -81,6 +81,7 @@
 			this.comboBox1.Name = "comboBox1";
 			this.comboBox1.Size = new System.Drawing.Size(88, 21);
 			this.comboBox1.TabIndex = 2;
+			this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
 			// 
 			// labelTemp
 			// 
@@ -91,27 +92,30 @@
 			this.labelTemp.Size = new System.Drawing.Size(193, 85);
 			this.labelTemp.TabIndex = 5;
 			this.labelTemp.Text = "--.-°C";
+			this.labelTemp.Click += new System.EventHandler(this.labelTemp_Click);
 			// 
 			// labelPress
 			// 
 			this.labelPress.AutoSize = true;
 			this.labelPress.Font = new System.Drawing.Font("Maiandra GD", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.labelPress.Location = new System.Drawing.Point(482, 128);
+			this.labelPress.Location = new System.Drawing.Point(481, 129);
 			this.labelPress.Margin = new System.Windows.Forms.Padding(0);
 			this.labelPress.Name = "labelPress";
 			this.labelPress.Size = new System.Drawing.Size(93, 77);
 			this.labelPress.TabIndex = 11;
 			this.labelPress.Text = "---";
+			this.labelPress.Click += new System.EventHandler(this.labelPress_Click);
 			// 
 			// labMMHG
 			// 
 			this.labMMHG.AutoSize = true;
 			this.labMMHG.Font = new System.Drawing.Font("Maiandra GD", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.labMMHG.Location = new System.Drawing.Point(565, 169);
+			this.labMMHG.Location = new System.Drawing.Point(565, 170);
 			this.labMMHG.Name = "labMMHG";
 			this.labMMHG.Size = new System.Drawing.Size(63, 19);
 			this.labMMHG.TabIndex = 13;
 			this.labMMHG.Text = "mm Hg";
+			this.labMMHG.Click += new System.EventHandler(this.labMMHG_Click);
 			// 
 			// bReload
 			// 
@@ -122,7 +126,7 @@
 			this.bReload.TabIndex = 14;
 			this.bReload.Text = "reload";
 			this.bReload.UseVisualStyleBackColor = true;
-			this.bReload.Click += new System.EventHandler(this.button1_Click);
+			this.bReload.Click += new System.EventHandler(this.bReload_Click);
 			// 
 			// labelHumd
 			// 
@@ -133,18 +137,19 @@
 			this.labelHumd.Size = new System.Drawing.Size(152, 85);
 			this.labelHumd.TabIndex = 17;
 			this.labelHumd.Text = "--%";
+			this.labelHumd.Click += new System.EventHandler(this.labelHumd_Click);
 			// 
-			// button4
+			// bSettings
 			// 
-			this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.button4.Location = new System.Drawing.Point(569, 446);
-			this.button4.Name = "button4";
-			this.button4.Size = new System.Drawing.Size(146, 48);
-			this.button4.TabIndex = 20;
-			this.button4.Text = "settings";
-			this.button4.UseVisualStyleBackColor = true;
-			this.button4.Click += new System.EventHandler(this.button4_Click);
+			this.bSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.bSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.bSettings.Location = new System.Drawing.Point(569, 446);
+			this.bSettings.Name = "bSettings";
+			this.bSettings.Size = new System.Drawing.Size(146, 48);
+			this.bSettings.TabIndex = 20;
+			this.bSettings.Text = "Налаштування";
+			this.bSettings.UseVisualStyleBackColor = true;
+			this.bSettings.Click += new System.EventHandler(this.bSettings_Click);
 			// 
 			// button5
 			// 
@@ -156,7 +161,7 @@
 			this.button5.TabIndex = 21;
 			this.button5.Text = "Графік";
 			this.button5.UseVisualStyleBackColor = true;
-			this.button5.Click += new System.EventHandler(this.button5_Click);
+			this.button5.Click += new System.EventHandler(this.bChart_Click);
 			// 
 			// labelLux
 			// 
@@ -169,6 +174,7 @@
 			this.labelLux.TabIndex = 25;
 			this.labelLux.Text = "---";
 			this.labelLux.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.labelLux.Click += new System.EventHandler(this.labelLux_Click);
 			// 
 			// labLUX
 			// 
@@ -179,6 +185,7 @@
 			this.labLUX.Size = new System.Drawing.Size(30, 19);
 			this.labLUX.TabIndex = 26;
 			this.labLUX.Text = "lux";
+			this.labLUX.Click += new System.EventHandler(this.labLUX_Click);
 			// 
 			// labPPM
 			// 
@@ -189,6 +196,7 @@
 			this.labPPM.Size = new System.Drawing.Size(41, 19);
 			this.labPPM.TabIndex = 30;
 			this.labPPM.Text = "ppm";
+			this.labPPM.Click += new System.EventHandler(this.labPPM_Click);
 			// 
 			// labelCO2
 			// 
@@ -201,23 +209,28 @@
 			this.labelCO2.TabIndex = 29;
 			this.labelCO2.Text = "---";
 			this.labelCO2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.labelCO2.Click += new System.EventHandler(this.labelCO2_Click);
 			// 
 			// serialPort1
 			// 
 			this.serialPort1.RtsEnable = true;
 			this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
 			// 
+			// folderBrowserDialog1
+			// 
+			this.folderBrowserDialog1.HelpRequest += new System.EventHandler(this.folderBrowserDialog1_HelpRequest);
+			// 
 			// button1
 			// 
 			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.button1.Location = new System.Drawing.Point(435, 239);
+			this.button1.Location = new System.Drawing.Point(926, 468);
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(74, 29);
 			this.button1.TabIndex = 40;
 			this.button1.Text = "Random data";
 			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.button1_Click_1);
+			this.button1.Click += new System.EventHandler(this.bRandom_Click);
 			// 
 			// panel10
 			// 
@@ -227,6 +240,7 @@
 			this.panel10.Name = "panel10";
 			this.panel10.Size = new System.Drawing.Size(52, 52);
 			this.panel10.TabIndex = 39;
+			this.panel10.Paint += new System.Windows.Forms.PaintEventHandler(this.panel10_Paint);
 			// 
 			// panel9
 			// 
@@ -236,6 +250,7 @@
 			this.panel9.Name = "panel9";
 			this.panel9.Size = new System.Drawing.Size(60, 32);
 			this.panel9.TabIndex = 38;
+			this.panel9.Paint += new System.Windows.Forms.PaintEventHandler(this.panel9_Paint);
 			// 
 			// panel8
 			// 
@@ -245,6 +260,7 @@
 			this.panel8.Name = "panel8";
 			this.panel8.Size = new System.Drawing.Size(90, 92);
 			this.panel8.TabIndex = 37;
+			this.panel8.Paint += new System.Windows.Forms.PaintEventHandler(this.panel8_Paint);
 			// 
 			// panel5
 			// 
@@ -254,24 +270,29 @@
 			this.panel5.Name = "panel5";
 			this.panel5.Size = new System.Drawing.Size(60, 60);
 			this.panel5.TabIndex = 0;
+			this.panel5.Paint += new System.Windows.Forms.PaintEventHandler(this.panel5_Paint);
 			// 
-			// panel4
+			// panelCO2
 			// 
-			this.panel4.BackgroundImage = global::Weatherdata.Properties.Resources.PresArrowDown;
-			this.panel4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-			this.panel4.Location = new System.Drawing.Point(671, 272);
-			this.panel4.Name = "panel4";
-			this.panel4.Size = new System.Drawing.Size(29, 19);
-			this.panel4.TabIndex = 36;
+			this.panelCO2.BackgroundImage = global::Weatherdata.Properties.Resources.PresArrowDown;
+			this.panelCO2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.panelCO2.Location = new System.Drawing.Point(671, 272);
+			this.panelCO2.Name = "panelCO2";
+			this.panelCO2.Size = new System.Drawing.Size(29, 19);
+			this.panelCO2.TabIndex = 36;
+			this.panelCO2.Visible = false;
+			this.panelCO2.Paint += new System.Windows.Forms.PaintEventHandler(this.panelCO2_Paint);
 			// 
-			// panel3
+			// panelLux
 			// 
-			this.panel3.BackgroundImage = global::Weatherdata.Properties.Resources.PresArrowDown;
-			this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-			this.panel3.Location = new System.Drawing.Point(278, 272);
-			this.panel3.Name = "panel3";
-			this.panel3.Size = new System.Drawing.Size(29, 19);
-			this.panel3.TabIndex = 35;
+			this.panelLux.BackgroundImage = global::Weatherdata.Properties.Resources.PresArrowDown;
+			this.panelLux.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.panelLux.Location = new System.Drawing.Point(278, 272);
+			this.panelLux.Name = "panelLux";
+			this.panelLux.Size = new System.Drawing.Size(29, 19);
+			this.panelLux.TabIndex = 35;
+			this.panelLux.Visible = false;
+			this.panelLux.Paint += new System.Windows.Forms.PaintEventHandler(this.panelLux_Paint);
 			// 
 			// panel7
 			// 
@@ -282,6 +303,7 @@
 			this.panel7.Name = "panel7";
 			this.panel7.Size = new System.Drawing.Size(347, 26);
 			this.panel7.TabIndex = 33;
+			this.panel7.Paint += new System.Windows.Forms.PaintEventHandler(this.panel7_Paint);
 			// 
 			// panel6
 			// 
@@ -291,6 +313,7 @@
 			this.panel6.Name = "panel6";
 			this.panel6.Size = new System.Drawing.Size(323, 27);
 			this.panel6.TabIndex = 32;
+			this.panel6.Paint += new System.Windows.Forms.PaintEventHandler(this.panel6_Paint);
 			// 
 			// panel2
 			// 
@@ -300,6 +323,7 @@
 			this.panel2.Name = "panel2";
 			this.panel2.Size = new System.Drawing.Size(362, 108);
 			this.panel2.TabIndex = 12;
+			this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
 			// 
 			// panel1
 			// 
@@ -310,6 +334,7 @@
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(42, 106);
 			this.panel1.TabIndex = 10;
+			this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
 			// 
 			// panelTemp
 			// 
@@ -318,6 +343,7 @@
 			this.panelTemp.Name = "panelTemp";
 			this.panelTemp.Size = new System.Drawing.Size(5, 42);
 			this.panelTemp.TabIndex = 22;
+			this.panelTemp.Paint += new System.Windows.Forms.PaintEventHandler(this.panelTemp_Paint);
 			// 
 			// panelHumdZero
 			// 
@@ -328,6 +354,7 @@
 			this.panelHumdZero.Name = "panelHumdZero";
 			this.panelHumdZero.Size = new System.Drawing.Size(41, 80);
 			this.panelHumdZero.TabIndex = 34;
+			this.panelHumdZero.Paint += new System.Windows.Forms.PaintEventHandler(this.panelHumdZero_Paint);
 			// 
 			// panelHumdFull
 			// 
@@ -338,6 +365,7 @@
 			this.panelHumdFull.Name = "panelHumdFull";
 			this.panelHumdFull.Size = new System.Drawing.Size(41, 80);
 			this.panelHumdFull.TabIndex = 35;
+			this.panelHumdFull.Paint += new System.Windows.Forms.PaintEventHandler(this.panelHumdFull_Paint);
 			// 
 			// Form1
 			// 
@@ -349,8 +377,8 @@
 			this.Controls.Add(this.panel9);
 			this.Controls.Add(this.panel8);
 			this.Controls.Add(this.panel5);
-			this.Controls.Add(this.panel4);
-			this.Controls.Add(this.panel3);
+			this.Controls.Add(this.panelCO2);
+			this.Controls.Add(this.panelLux);
 			this.Controls.Add(this.panel7);
 			this.Controls.Add(this.panel6);
 			this.Controls.Add(this.labPPM);
@@ -359,7 +387,7 @@
 			this.Controls.Add(this.labMMHG);
 			this.Controls.Add(this.labelLux);
 			this.Controls.Add(this.button5);
-			this.Controls.Add(this.button4);
+			this.Controls.Add(this.bSettings);
 			this.Controls.Add(this.labelPress);
 			this.Controls.Add(this.bReload);
 			this.Controls.Add(this.panel2);
@@ -374,43 +402,44 @@
 			this.Name = "Form1";
 			this.Text = "Form1";
 			this.Load += new System.EventHandler(this.Form1_Load);
+			this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
 			this.panel1.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
         }
 
-        #endregion
+		#endregion
 
-        private System.Windows.Forms.Button bConnect;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label labelTemp;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label labelPress;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label labMMHG;
-        private System.Windows.Forms.Button bReload;
-        private System.Windows.Forms.Label labelHumd;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Panel panelTemp;
-        private System.Windows.Forms.Label labelLux;
-        private System.Windows.Forms.Label labLUX;
-        private System.Windows.Forms.Label labPPM;
-        private System.Windows.Forms.Label labelCO2;
-        private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Panel panelHumdZero;
-        private System.Windows.Forms.Panel panelHumdFull;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
-        private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.Panel panel8;
-        private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.Panel panel10;
-		private System.Windows.Forms.Button button1;
-		public System.IO.Ports.SerialPort serialPort1;
+		internal System.Windows.Forms.Button bConnect;
+		internal System.Windows.Forms.ComboBox comboBox1;
+		internal System.Windows.Forms.Label labelTemp;
+		internal System.Windows.Forms.Panel panel1;
+		internal System.Windows.Forms.Label labelPress;
+		internal System.Windows.Forms.Panel panel2;
+		internal System.Windows.Forms.Label labMMHG;
+		internal System.Windows.Forms.Button bReload;
+		internal System.Windows.Forms.Label labelHumd;
+		internal System.Windows.Forms.Button bSettings;
+		internal System.Windows.Forms.Button button5;
+		internal System.Windows.Forms.Panel panelTemp;
+		internal System.Windows.Forms.Label labelLux;
+		internal System.Windows.Forms.Label labLUX;
+		internal System.Windows.Forms.Label labPPM;
+		internal System.Windows.Forms.Label labelCO2;
+		internal System.Windows.Forms.Panel panel6;
+		internal System.Windows.Forms.Panel panel7;
+		internal System.Windows.Forms.Panel panelLux;
+		internal System.Windows.Forms.Panel panelCO2;
+		internal System.Windows.Forms.Panel panelHumdZero;
+		internal System.Windows.Forms.Panel panelHumdFull;
+		internal System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+		internal System.Windows.Forms.Panel panel5;
+		internal System.Windows.Forms.Panel panel8;
+		internal System.Windows.Forms.Panel panel9;
+		internal System.Windows.Forms.Panel panel10;
+		internal System.Windows.Forms.Button button1;
+		internal System.IO.Ports.SerialPort serialPort1;
 	}
 }
 
