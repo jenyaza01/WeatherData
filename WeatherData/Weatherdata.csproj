@@ -132,7 +132,7 @@
     <None Include="Resources\therm.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Protocols.txt" />
+    <None Include="Protocols.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

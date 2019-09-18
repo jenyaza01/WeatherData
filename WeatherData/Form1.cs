@@ -18,7 +18,9 @@ namespace Weatherdata
 		internal FormSettings formSettings;
 
 		private Graphics g;
-		private int luxPosition, pressPosition, co2Position, humdPosition; //labels
+		private int luxPosition, pressPosition, co2Position, humdPosition;
+		private int dustSPosition, dustMPosition, dustLPosition; //labels
+
 		private void Form1_Load(object sender, EventArgs e)
 		{
 			m2 = new Form2();
@@ -32,6 +34,9 @@ namespace Weatherdata
 			pressPosition = labelPress.Left + labelPress.Width;
 			co2Position = labelCO2.Left + labelCO2.Width;
 			humdPosition = labelHumd.Left + labelHumd.Width;
+			dustSPosition = labelDustS.Left + labelDustS.Width;
+			dustMPosition = labelDustM.Left + labelDustM.Width;
+			dustLPosition = labelDustL.Left + labelDustL.Width;
 
 			refreshCOMPorts();
 
@@ -218,31 +223,31 @@ namespace Weatherdata
 
 		private void DustSUpdate()
 		{
-			//	labelDustS.Text = DustSValue.ToString();
-			//	labelDustS.Left = dustSPosition - labelDustS.Width;
+			labelDustS.Text = dustSValue.ToString();
+			labelDustS.Left = dustSPosition - labelDustS.Width;
 
 			//	panelDustS.Left = 0;
-			//	m2.chart1.Series["DustS"].Points.AddXY(time, dustSValue);
+			//m2.chart1.Series["Dust"].Points.AddXY(time, dustSValue);
 			//	if (!panelDustS.Visible) panelDustS.Visible = true;
 		}
 
 		private void DustMUpdate()
 		{
-			//	labelDustM.Text = DustMValue.ToMtring();
-			//	labelDustM.Left = dustMPosition - labelDustM.Width;
+			labelDustM.Text = dustMValue.ToString();
+			labelDustM.Left = dustMPosition - labelDustM.Width;
 
-			//	panelDustM.Left = 0;
-			//	m2.chart1.Meries["DustM"].Points.AddXY(time, dustMValue);
+			//panelDustM.Left = 0;
+			m2.chart1.Series["Dust"].Points.AddXY(time, dustMValue);
 			//	if (!panelDustM.Visible) panelDustM.Visible = true;
 		}
 
 		private void DustLUpdate()
 		{
-			//	labelDustL.Text = DustLValue.ToLtring();
-			//	labelDustL.Left = dustLPosition - labelDustL.Width;
+			labelDustL.Text = dustLValue.ToString();
+			labelDustL.Left = dustLPosition - labelDustL.Width;
 
 			//	panelDustL.Left = 0;
-			//	m2.chart1.Leries["DustL"].Points.AddXY(time, dustLValue);
+			//m2.chart1.Series["Dust"].Points.AddXY(time, dustLValue);
 			//	if (!panelDustL.Visible) panelDustL.Visible = true;
 		}
 
@@ -289,7 +294,7 @@ namespace Weatherdata
 		}
 
 
-		
+
 		private Random rnd = new Random();
 		private void bRandom_Click(object sender, EventArgs e)
 		{
@@ -399,7 +404,7 @@ namespace Weatherdata
 					if (s.Substring(index, 1).Equals("S"))
 					{
 						t = s.Substring(++index, 4);
-						co2Value = Int16.Parse(t);
+						dustSValue = Int16.Parse(t);
 						index += 4;
 						if (formSettings.cDust.Checked)
 							res += "S" + t;
@@ -408,7 +413,7 @@ namespace Weatherdata
 					if (s.Substring(index, 1).Equals("M"))
 					{
 						t = s.Substring(++index, 4);
-						co2Value = Int16.Parse(t);
+						dustMValue = Int16.Parse(t);
 						index += 4;
 						if (formSettings.cDust.Checked)
 							res += "M" + t;
@@ -416,7 +421,7 @@ namespace Weatherdata
 					if (s.Substring(index, 1).Equals("L"))
 					{
 						t = s.Substring(++index, 4);
-						co2Value = Int16.Parse(t);
+						dustLValue = Int16.Parse(t);
 						index += 4;
 						if (formSettings.cDust.Checked)
 							res += "L" + t;
@@ -443,121 +448,7 @@ namespace Weatherdata
 		private short readLuxvalue;
 		private short readDustSValue;
 		private short readDustMValue;
-
-		private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-		{
-
-		}
-
-		private void labelTemp_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void labelPress_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void labMMHG_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void labelHumd_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void labelLux_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void labLUX_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void labPPM_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void labelCO2_Click(object sender, EventArgs e)
-		{
-
-		}
-
-		private void folderBrowserDialog1_HelpRequest(object sender, EventArgs e)
-		{
-
-		}
-
-		private void panel10_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
-
-		private void panel9_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
-
-		private void panel8_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
-
-		private void panel5_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
-
-		private void panelCO2_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
-
-		private void panelLux_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
-
-		private void panel7_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
-
-		private void panel6_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
-
-		private void panel2_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
-
-		private void panel1_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
-
-		private void panelTemp_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
-
-		private void panelHumdZero_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
-
-		private void panelHumdFull_Paint(object sender, PaintEventArgs e)
-		{
-
-		}
+		
 
 		private short readDustLValue;
 		private short readIonvalue;
