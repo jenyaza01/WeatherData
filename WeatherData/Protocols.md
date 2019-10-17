@@ -76,4 +76,4 @@ B - change the added value, default is float 0.0
 
 Calibrating values stored in EEPROM inside device, this means 
 1) you mustn't re-set them after every reload of device;
-2) you have a limited number of rewrites of these numbers (up to ~10000).
+2) you have a limited number of rewrites of these numbers (up to ~20000).

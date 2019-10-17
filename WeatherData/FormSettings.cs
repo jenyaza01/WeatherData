@@ -56,11 +56,11 @@ namespace Weatherdata
 		internal void UpdateButtonColor()
 		{
 			if (!parentForm.serialPort1.IsOpen)
-				bSetMeasureTime.BackColor = Color.DimGray;
+				bSetMeasureTime.BackColor = Color.Gray;
 			else if (!hasToRecord)
-				bSetMeasureTime.BackColor = Color.DarkRed;
+				bSetMeasureTime.BackColor = Color.IndianRed;
 			else if (!isRecordingEnabled)
-				bSetMeasureTime.BackColor = Color.Salmon;
+				bSetMeasureTime.BackColor = Color.DarkSalmon;
 			else bSetMeasureTime.BackColor = Color.LimeGreen;
 		}
 
@@ -94,6 +94,16 @@ namespace Weatherdata
 		}
 
 		private volatile int measureTimeMinutes = 0;
+		private int recordEvery = 1;
+		private int recordCurrent = 1;
+
+		public bool RecordCurrent()
+		{
+			if (recordCurrent >= recordEvery) { recordCurrent = 1; return true; }
+			recordCurrent++;
+			return false;
+		}
+
 		private void bSetMeasureTime_Click(object sender, EventArgs e)
 		{
 			if (parentForm.serialPort1.IsOpen)
@@ -101,6 +111,13 @@ namespace Weatherdata
 					if (!isRecordingEnabled)
 					{
 						timer1.Stop();
+
+						if (radioButtMinutes.Checked)
+							recordEvery = (int)numRefRate.Value * 6;
+						else recordEvery = (int)numRefRate.Value / 10;
+
+						recordCurrent = 1;
+
 						if (radioButtonMinutes2.Checked)
 							measureTimeMinutes = (int)numMeasureTime.Value;
 						else measureTimeMinutes = (int)numMeasureTime.Value * 60;
@@ -108,7 +125,7 @@ namespace Weatherdata
 						UpdRecordingState(); // this update isRecordingEnabled to true color to green
 						int hours = measureTimeMinutes / 60;
 						int min = measureTimeMinutes - (hours * 60);
-						bSetMeasureTime.Text = $"Встановити ({hours}:{min})";
+						bSetMeasureTime.Text = $"Встановлено ({hours}:{min})";
 
 						timer1.Start();
 					}
@@ -149,12 +166,71 @@ namespace Weatherdata
 			UpdateButtonColor();
 		}
 
+		private void bСalibrationSend_Click(object sender, EventArgs e)
+		{
+			string str = "C";
+			double val;
+
+			if (Double.TryParse(TempA.Text.Replace(".", ","), out val))
+				if (val != 1.0)
+					str += "TA" + clamp2(val, 0.5, 2.0, 1000).ToString();
+			if (Double.TryParse(TempB.Text.Replace(".", ","), out val))
+				if (val != 0.0)
+					str += "TB" + clamp2(val, -9.99, 99.99, 100).ToString();
+
+
+			if (Double.TryParse(HumdA.Text.Replace(".", ","), out val))
+				if (val != 1.0)
+					str += "HA" + clamp2(val, 0.5, 2.0, 1000).ToString();
+			if (Double.TryParse(HumdB.Text.Replace(".", ","), out val))
+				if (val != 0.0)
+					str += "HB" + clamp2(val, -9.99, 99.99, 100).ToString();
+
+
+			if (Double.TryParse(PresA.Text.Replace(".", ","), out val))
+				if (val != 1.0)
+					str += "PA" + clamp2(val, 0.5, 2.0, 1000).ToString();
+			if (Double.TryParse(PresB.Text.Replace(".", ","), out val))
+				if (val != 0.0)
+					str += "PB" + clamp2(val, -9.99, 99.99, 100).ToString();
+
+
+			if (Double.TryParse(BrtnA.Text.Replace(".", ","), out val))
+				if (val != 1.0)
+					str += "BA" + clamp2(val, 0.5, 2.0, 1000).ToString();
+			if (Double.TryParse(BrtnB.Text.Replace(".", ","), out val))
+				if (val != 0.0)
+					str += "BB" + clamp2(val, -9.99, 99.99, 100).ToString();
+
+
+			if (Double.TryParse(CO2A.Text.Replace(".", ","), out val))
+				if (val != 1.0)
+					str += "CA" + clamp2(val, 0.5, 2.0, 1000).ToString();
+			if (Double.TryParse(CO2B.Text.Replace(".", ","), out val))
+				if (val != 0.0)
+					str += "CB" + clamp2(val, -9.99, 99.99, 100).ToString();
+
+			parentForm.serialPort1.WriteLine(str);
+		}
+
+		private int clamp2(double a, double min, double max, int multiplier)
+		{
+			return (int)((a < max ? a > min ? a : min : max) * multiplier);
+		}
+
+		private void radioButtMinutes_CheckedChanged(object sender, EventArgs e)
+		{
+			numRefRate.Increment = 1;
+		}
+
 		private void timer1_Tick(object sender, EventArgs e)
 		{
-			if (measureTimeMinutes == 1)
+			measureTimeMinutes--;
+			if (measureTimeMinutes == 0)
 			{
 				UpdRecordingState();
 				timer1.Stop();
+				bSetMeasureTime.Text = $"Встановити (00:00)";
 
 				if (isRecordingEnabled)
 				{
@@ -165,19 +241,20 @@ namespace Weatherdata
 					cCO2.Checked = false;
 					cIon.Checked = false;
 				}
+				return;
 			}
-			measureTimeMinutes--;
 			int hours = measureTimeMinutes / 60;
 			int min = measureTimeMinutes - (hours * 60);
-			bSetMeasureTime.Text = $"Встановити ({hours}:{"min:00"})";
+			bSetMeasureTime.Text = $"Встановлено ({hours}:{"min:2d"})";
 		}
 
 		private int reloadTime;
 		private void radioButton2_CheckedChanged(object sender, EventArgs e)
 		{
+			numRefRate.Increment = 10;
 			if (radioButtonSeconds.Checked)
-				if (numRefRate.Value < 15)
-					numRefRate.Value = 15;
+				if (numRefRate.Value < 10)
+					numRefRate.Value = 10;
 		}
 
 		private void numericUpDown1_ValueChanged(object sender, EventArgs e)

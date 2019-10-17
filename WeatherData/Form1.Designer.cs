@@ -65,6 +65,7 @@
 			this.labelDustL = new System.Windows.Forms.Label();
 			this.panel11 = new System.Windows.Forms.Panel();
 			this.labelDustS = new System.Windows.Forms.Label();
+			this.button2 = new System.Windows.Forms.Button();
 			this.panel1.SuspendLayout();
 			this.panel3.SuspendLayout();
 			this.panel4.SuspendLayout();
@@ -146,10 +147,10 @@
 			// bSettings
 			// 
 			this.bSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.bSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.bSettings.Location = new System.Drawing.Point(569, 561);
+			this.bSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.bSettings.Location = new System.Drawing.Point(437, 557);
 			this.bSettings.Name = "bSettings";
-			this.bSettings.Size = new System.Drawing.Size(146, 48);
+			this.bSettings.Size = new System.Drawing.Size(149, 48);
 			this.bSettings.TabIndex = 20;
 			this.bSettings.Text = "Налаштування";
 			this.bSettings.UseVisualStyleBackColor = true;
@@ -158,10 +159,10 @@
 			// button5
 			// 
 			this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.button5.Location = new System.Drawing.Point(379, 561);
+			this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.button5.Location = new System.Drawing.Point(592, 557);
 			this.button5.Name = "button5";
-			this.button5.Size = new System.Drawing.Size(177, 48);
+			this.button5.Size = new System.Drawing.Size(157, 48);
 			this.button5.TabIndex = 21;
 			this.button5.Text = "Графік";
 			this.button5.UseVisualStyleBackColor = true;
@@ -220,12 +221,13 @@
 			// 
 			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-			this.button1.Location = new System.Drawing.Point(926, 583);
+			this.button1.Location = new System.Drawing.Point(881, 545);
 			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(74, 29);
+			this.button1.Size = new System.Drawing.Size(105, 29);
 			this.button1.TabIndex = 40;
 			this.button1.Text = "Random data";
 			this.button1.UseVisualStyleBackColor = true;
+			this.button1.Visible = false;
 			this.button1.Click += new System.EventHandler(this.bRandom_Click);
 			// 
 			// panel10
@@ -413,11 +415,26 @@
 			this.labelDustS.Text = "256";
 			this.labelDustS.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
+			// button2
+			// 
+			this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.button2.Enabled = false;
+			this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.button2.Location = new System.Drawing.Point(865, 580);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(135, 29);
+			this.button2.TabIndex = 43;
+			this.button2.Text = "Random300";
+			this.button2.UseVisualStyleBackColor = true;
+			this.button2.Visible = false;
+			this.button2.Click += new System.EventHandler(this.button2_Click);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1012, 617);
+			this.Controls.Add(this.button2);
 			this.Controls.Add(this.panel11);
 			this.Controls.Add(this.panel4);
 			this.Controls.Add(this.panel3);
@@ -501,6 +518,7 @@
 		internal System.Windows.Forms.Label labelDustL;
 		private System.Windows.Forms.Panel panel11;
 		internal System.Windows.Forms.Label labelDustS;
+		internal System.Windows.Forms.Button button2;
 	}
 }
 

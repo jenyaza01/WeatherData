@@ -47,7 +47,7 @@
 			this.radioButtonMinutes2 = new System.Windows.Forms.RadioButton();
 			this.bSetMeasureTime = new System.Windows.Forms.Button();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this.button3 = new System.Windows.Forms.Button();
+			this.bСalibrationSend = new System.Windows.Forms.Button();
 			this.label8 = new System.Windows.Forms.Label();
 			this.label7 = new System.Windows.Forms.Label();
 			this.label6 = new System.Windows.Forms.Label();
@@ -198,6 +198,7 @@
 			this.radioButtMinutes.TabIndex = 9;
 			this.radioButtMinutes.Text = "хв";
 			this.radioButtMinutes.UseVisualStyleBackColor = true;
+			this.radioButtMinutes.CheckedChanged += new System.EventHandler(this.radioButtMinutes_CheckedChanged);
 			// 
 			// radioButtonSeconds
 			// 
@@ -216,6 +217,11 @@
 			// numRefRate
 			// 
 			this.numRefRate.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.numRefRate.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
 			this.numRefRate.Location = new System.Drawing.Point(11, 31);
 			this.numRefRate.Maximum = new decimal(new int[] {
             60,
@@ -242,7 +248,7 @@
 			this.numMeasureTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.numMeasureTime.Location = new System.Drawing.Point(6, 37);
 			this.numMeasureTime.Maximum = new decimal(new int[] {
-            60,
+            750,
             0,
             0,
             0});
@@ -298,7 +304,7 @@
 			// 
 			// bSetMeasureTime
 			// 
-			this.bSetMeasureTime.BackColor = System.Drawing.Color.Red;
+			this.bSetMeasureTime.BackColor = System.Drawing.Color.Gray;
 			this.bSetMeasureTime.Location = new System.Drawing.Point(4, 76);
 			this.bSetMeasureTime.Name = "bSetMeasureTime";
 			this.bSetMeasureTime.Size = new System.Drawing.Size(134, 31);
@@ -309,7 +315,7 @@
 			// 
 			// groupBox2
 			// 
-			this.groupBox2.Controls.Add(this.button3);
+			this.groupBox2.Controls.Add(this.bСalibrationSend);
 			this.groupBox2.Controls.Add(this.label8);
 			this.groupBox2.Controls.Add(this.label7);
 			this.groupBox2.Controls.Add(this.label6);
@@ -336,14 +342,15 @@
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Калібровка       множник      доданок";
 			// 
-			// button3
+			// bСalibrationSend
 			// 
-			this.button3.Location = new System.Drawing.Point(9, 176);
-			this.button3.Name = "button3";
-			this.button3.Size = new System.Drawing.Size(227, 31);
-			this.button3.TabIndex = 12;
-			this.button3.Text = "Встановити";
-			this.button3.UseVisualStyleBackColor = true;
+			this.bСalibrationSend.Location = new System.Drawing.Point(9, 176);
+			this.bСalibrationSend.Name = "bСalibrationSend";
+			this.bСalibrationSend.Size = new System.Drawing.Size(227, 31);
+			this.bСalibrationSend.TabIndex = 12;
+			this.bСalibrationSend.Text = "Встановити";
+			this.bСalibrationSend.UseVisualStyleBackColor = true;
+			this.bСalibrationSend.Click += new System.EventHandler(this.bСalibrationSend_Click);
 			// 
 			// label8
 			// 
@@ -407,6 +414,7 @@
 			// 
 			// IonB
 			// 
+			this.IonB.Enabled = false;
 			this.IonB.Location = new System.Drawing.Point(174, 148);
 			this.IonB.Name = "IonB";
 			this.IonB.Size = new System.Drawing.Size(62, 22);
@@ -467,6 +475,7 @@
 			// 
 			// IonA
 			// 
+			this.IonA.Enabled = false;
 			this.IonA.Location = new System.Drawing.Point(101, 148);
 			this.IonA.Name = "IonA";
 			this.IonA.Size = new System.Drawing.Size(62, 22);
@@ -567,7 +576,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(325, 258);
+			this.ClientSize = new System.Drawing.Size(623, 258);
 			this.Controls.Add(this.bShowMore);
 			this.Controls.Add(this.cIon);
 			this.Controls.Add(this.panel2);
@@ -631,7 +640,7 @@
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.Button button3;
+		private System.Windows.Forms.Button bСalibrationSend;
 		private System.Windows.Forms.Timer timer1;
 		private System.Windows.Forms.Panel panel2;
 		private System.Windows.Forms.Button bShowMore;
