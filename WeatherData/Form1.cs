@@ -12,11 +12,12 @@ namespace Weatherdata
 		internal Form1()
 		{
 			InitializeComponent();
+			nIcon.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
 		}
 
 		#region variables
 
-		internal Form2 m2;
+		internal FormChart formChart;
 		internal FormSettings formSettings;
 
 		private Graphics g;
@@ -38,7 +39,7 @@ namespace Weatherdata
 
 		private void Form1_Load(object sender, EventArgs e)
 		{
-			m2 = new Form2();
+			formChart = new FormChart();
 			formSettings = new FormSettings
 			{
 				parentForm = this
@@ -60,12 +61,12 @@ namespace Weatherdata
 
 		private void bChart_Click(object sender, EventArgs e)
 		{
-			if (m2.Visible)
-				m2.Hide();
+			if (formChart.Visible)
+				formChart.Hide();
 			else
 			{
-				m2.Show();
-				m2.Activate();
+				formChart.Show();
+				formChart.Activate();
 			}
 		}
 
@@ -109,20 +110,31 @@ namespace Weatherdata
 		{
 			if (serialPort1.IsOpen)
 			{
-				try
+				if (formSettings.isRecordingEnabled)
 				{
-					serialPort1.Close();
-				}
-				catch (Exception)
-				{
-					MessageBox.Show("Порт закритий з помилкою.\nВірогідно, пристрій вже від'єднано");
-				}
-				finally
-				{
-					bConnect.Text = "Connect";
-					bReload.Enabled = true;
-					comboBox1.Enabled = true;
-					formSettings.UpdateButtonColor();
+					if (MessageBox.Show("Активний запис даних з пристрою.\nДійсно від'єднатися?", "Увага!", MessageBoxButtons.OKCancel) == DialogResult.OK)
+					{
+						formSettings.UpdRecordingState();
+						formSettings.timer1.Stop();
+						formSettings.bSetMeasureTime.Text = $"Встановити (00:00)";
+						nIcon.Visible = false;
+
+						try
+						{
+							serialPort1.Close();
+						}
+						catch (Exception)
+						{
+							MessageBox.Show("Порт закритий з помилкою.\nВірогідно, пристрій вже від'єднано");
+						}
+						finally
+						{
+							bConnect.Text = "Connect";
+							bReload.Enabled = true;
+							comboBox1.Enabled = true;
+							formSettings.UpdateButtonColor();
+						}
+					}
 				}
 			}
 			else
@@ -182,7 +194,7 @@ namespace Weatherdata
 			{
 				for (int i = 0; i < 300; i++)
 				{
-					Invoke(new Action(() => { bRandom_Click(this, null); m2.chart1.ChartAreas[0].RecalculateAxesScale(); }));
+					Invoke(new Action(() => { bRandom_Click(this, null); formChart.chart1.ChartAreas[0].RecalculateAxesScale(); }));
 
 					Task.Delay(50).Wait();
 				}
@@ -262,15 +274,33 @@ namespace Weatherdata
 
 		#region variable updaters
 
+		private readonly int CHART_POINTS = 600;
+		private void ChartScaleUpdate()
+		{
+			if (formChart.Visible)
+				try
+				{
+					formChart.chart1.ChartAreas[0].RecalculateAxesScale();
+					double delta = formChart.chart1.ChartAreas[0].AxisY.Maximum - formChart.chart1.ChartAreas[0].AxisY.Minimum;
+					formChart.chart1.ChartAreas[0].AxisY.Maximum += delta;
+					formChart.chart1.ChartAreas[0].AxisY.Minimum -= delta;
+				}
+				catch (OverflowException) { };
+
+		}
+
 		private void PressureUpdate()
 		{
 			panel2.Invalidate();
 			Application.DoEvents();
 			drawPressureArrow();
+
 			labelPress.Text = pressValue.ToString("000");
 			labelPress.Left = pressPosition - labelPress.Width;
-			if (m2.chart1.Series["Pressure"].Points.Count > 250) m2.chart1.Series["Pressure"].Points.RemoveAt(0);
-			m2.chart1.Series["Pressure"].Points.AddXY(currTime, pressValue);
+
+			if (formChart.chart1.Series["Pressure"].Points.Count > CHART_POINTS)
+				formChart.chart1.Series["Pressure"].Points.RemoveAt(0);
+			formChart.chart1.Series["Pressure"].Points.AddXY(currTime, pressValue);
 		}
 
 		private void TempUpdate()
@@ -278,26 +308,31 @@ namespace Weatherdata
 			labelTemp.Text = tempValue.ToString("00.0°C");
 			panelTemp.Top = (int)Math.Round(81 - tempValue * 1.5f);
 			panelTemp.Height = (int)Math.Round(tempValue * 1.5f);
-			if (m2.chart1.Series["Temperature"].Points.Count > 250) m2.chart1.Series["Temperature"].Points.RemoveAt(0);
-			m2.chart1.Series["Temperature"].Points.AddXY(currTime, tempValue);
+
+			if (formChart.chart1.Series["Temperature"].Points.Count > CHART_POINTS) formChart.chart1.Series["Temperature"].Points.RemoveAt(0);
+			formChart.chart1.Series["Temperature"].Points.AddXY(currTime, tempValue);
 		}
+
 
 		private void HumdUpdate()
 		{
 			labelHumd.Text = Math.Round(humdValue).ToString() + "%";
 			labelHumd.Left = humdPosition - labelHumd.Width;
 			panelHumdZero.Height = (int)Math.Round(73 - humdValue * 0.62);
-			if (m2.chart1.Series["Humidity"].Points.Count > 250) m2.chart1.Series["Humidity"].Points.RemoveAt(0);
-			m2.chart1.Series["Humidity"].Points.AddXY(currTime, humdValue);
+
+			if (formChart.chart1.Series["Humidity"].Points.Count > CHART_POINTS) formChart.chart1.Series["Humidity"].Points.RemoveAt(0);
+			formChart.chart1.Series["Humidity"].Points.AddXY(currTime, humdValue);
+
 		}
 
 		private void CO2Update()
 		{
 			labelCO2.Text = co2Value.ToString();
 			labelCO2.Left = co2Position - labelCO2.Width;
-			panelCO2.Left = (int)Math.Round(Math.Log(co2Value - 250) * 81 + 185);
-			if (m2.chart1.Series["CO2"].Points.Count > 250) m2.chart1.Series["CO2"].Points.RemoveAt(0);
-			m2.chart1.Series["CO2"].Points.AddXY(currTime, co2Value);
+			panelCO2.Left = (int)Math.Round(Math.Log(co2Value - CHART_POINTS) * 81 + 185);
+
+			if (formChart.chart1.Series["CO2"].Points.Count > CHART_POINTS) formChart.chart1.Series["CO2"].Points.RemoveAt(0);
+			formChart.chart1.Series["CO2"].Points.AddXY(currTime, co2Value);
 
 			if (!panelCO2.Visible) panelCO2.Visible = true;
 		}
@@ -308,8 +343,9 @@ namespace Weatherdata
 			labelLux.Left = luxPosition - labelLux.Width;
 
 			panelLux.Left = (int)Math.Round(Math.Log(luxValue + 5) * 42 + 8);
-			if (m2.chart1.Series["Brightness"].Points.Count > 250) m2.chart1.Series["Brightness"].Points.RemoveAt(0);
-			m2.chart1.Series["Brightness"].Points.AddXY(currTime, luxValue);
+			if (formChart.chart1.Series["Brightness"].Points.Count > CHART_POINTS) formChart.chart1.Series["Brightness"].Points.RemoveAt(0);
+			formChart.chart1.Series["Brightness"].Points.AddXY(currTime, luxValue);
+
 			if (!panelLux.Visible) panelLux.Visible = true;
 		}
 
@@ -339,8 +375,9 @@ namespace Weatherdata
 			labelDustM.Left = dustMPosition - labelDustM.Width;
 
 			//panelDustM.Left = 0;
-			if (m2.chart1.Series["Dust"].Points.Count > 250) m2.chart1.Series["Dust"].Points.RemoveAt(0);
-			m2.chart1.Series["Dust"].Points.AddXY(currTime, dustMValue);
+			if (formChart.chart1.Series["Dust"].Points.Count > CHART_POINTS) formChart.chart1.Series["Dust"].Points.RemoveAt(0);
+			formChart.chart1.Series["Dust"].Points.AddXY(currTime, dustMValue);
+
 			//	if (!panelDustM.Visible) panelDustM.Visible = true;
 		}
 
@@ -354,8 +391,19 @@ namespace Weatherdata
 			//	if (!panelDustL.Visible) panelDustL.Visible = true;
 		}
 
-		#endregion
+		private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			if (!nIcon.Visible) return;
+			e.Cancel = true;
+			Hide();
+		}
 
+		private void nIcon_Click(object sender, EventArgs e)
+		{
+			if (!Visible) { Show(); Activate(); }
+		}
+
+		#endregion
 
 		#region receiving data
 
@@ -363,19 +411,21 @@ namespace Weatherdata
 		{
 			string str = serialPort1.ReadLine();
 			if (IsValidLength(str.Length))
-				if (str[str.Length - 1].Equals("E"))
-					if (str[0].Equals("S"))
+			{
+				if (str[str.Length - 2].Equals('E'))
+					if (str[0].Equals('S'))
 						ParseWeatherStringS(str);
-					else if (str[0].Equals("Z"))
+					else if (str[0].Equals('Z'))
 						ParseWeatherStringZ(str);
-			// else wrong start char (nor S or Z)
-			// else last is not E
+				// else wrong start char (nor S or Z)
+				// else last is not E
+			}
 			// else not full string received 
 		}
 
 		private bool IsValidLength(int length)
 		{
-			return (((length - 2) % 4) == 0);
+			return (((length + 1) % 4) == 0);
 		}
 
 		private void ParseWeatherStringS(string s)
@@ -385,103 +435,107 @@ namespace Weatherdata
 			res += DateTime.Now.ToString("HHmmss");
 
 			short index = 1;
-			while (!s[index].Equals('E')) //while not end
+			Invoke(new Action(() =>
 			{
-				if (s.Substring(index, 1).Equals("T")) //Temperature
+				while (!s[index].Equals('E')) //while not end
 				{
-					t = s.Substring(++index, 4);
-					tempValue = Int16.Parse(t) / 10f;
-					index += 4;
-					if (formSettings.cTemp.Checked)
-						res += "T" + t;
-				}
+					if (s.Substring(index, 1).Equals("T")) //Temperature
+					{
+						t = s.Substring(++index, 4);
+						tempValue = Int16.Parse(t) / 10f;
+						index += 4;
+						if (formSettings.cTemp.Checked)
+							res += "T" + t;
+					}
 
-				if (s.Substring(index, 1).Equals("H"))
-				{
-					t = s.Substring(++index, 4);
-					humdValue = Int16.Parse(t) / 10f;
-					index += 4;
-					if (formSettings.cHumid.Checked)
-						res += "H" + t;
-				}
+					if (s.Substring(index, 1).Equals("H"))
+					{
+						t = s.Substring(++index, 4);
+						humdValue = Int16.Parse(t) / 10f;
+						index += 4;
+						if (formSettings.cHumid.Checked)
+							res += "H" + t;
+					}
 
-				if (s.Substring(index, 1).Equals("P"))
-				{
-					t = s.Substring(++index, 4);
-					pressValue = Int16.Parse(t) / 10f;
-					index += 4;
-					if (formSettings.cPressure.Checked)
-						res += "P" + t;
-				}
+					if (s.Substring(index, 1).Equals("P"))
+					{
+						t = s.Substring(++index, 4);
+						pressValue = Int16.Parse(t) / 10f;
+						index += 4;
+						if (formSettings.cPressure.Checked)
+							res += "P" + t;
+					}
 
-				if (s.Substring(index, 1).Equals("B"))
-				{
-					t = s.Substring(++index, 4);
-					luxValue = Int16.Parse(t);
-					index += 4;
-					if (formSettings.cBrightness.Checked)
-						res += "B" + t;
-				}
+					if (s.Substring(index, 1).Equals("B"))
+					{
+						t = s.Substring(++index, 4);
+						luxValue = Int16.Parse(t);
+						index += 4;
+						if (formSettings.cBrightness.Checked)
+							res += "B" + t;
+					}
 
-				if (s.Substring(index, 1).Equals("C"))
-				{
-					t = s.Substring(++index, 4);
-					co2Value = Int16.Parse(t);
-					index += 4;
-					if (formSettings.cCO2.Checked)
-						res += "C" + t;
-				}
+					if (s.Substring(index, 1).Equals("C"))
+					{
+						t = s.Substring(++index, 4);
+						co2Value = Int16.Parse(t);
+						index += 4;
+						if (formSettings.cCO2.Checked)
+							res += "C" + t;
+					}
 
-				if (s.Substring(index, 1).Equals("S"))
-				{
-					t = s.Substring(++index, 4);
-					dustSValue = Int16.Parse(t);
-					index += 4;
-					if (formSettings.cDust.Checked)
-						res += "S" + t;
-				}
+					if (s.Substring(index, 1).Equals("S"))
+					{
+						t = s.Substring(++index, 4);
+						dustSValue = Int16.Parse(t);
+						index += 4;
+						if (formSettings.cDust.Checked)
+							res += "S" + t;
+					}
 
-				if (s.Substring(index, 1).Equals("M"))
-				{
-					t = s.Substring(++index, 4);
-					dustMValue = Int16.Parse(t);
-					index += 4;
-					if (formSettings.cDust.Checked)
-						res += "M" + t;
+					if (s.Substring(index, 1).Equals("M"))
+					{
+						t = s.Substring(++index, 4);
+						dustMValue = Int16.Parse(t);
+						index += 4;
+						if (formSettings.cDust.Checked)
+							res += "M" + t;
+					}
+					if (s.Substring(index, 1).Equals("L"))
+					{
+						t = s.Substring(++index, 4);
+						dustLValue = Int16.Parse(t);
+						index += 4;
+						if (formSettings.cDust.Checked)
+							res += "L" + t;
+					}
+					if (s.Substring(index, 1).Equals("I"))
+					{
+						t = s.Substring(++index, 4);
+						co2Value = Int16.Parse(t);
+						index += 4;
+						if (formSettings.cIon.Checked)
+							res += "T" + t;
+					}
 				}
-				if (s.Substring(index, 1).Equals("L"))
-				{
-					t = s.Substring(++index, 4);
-					dustLValue = Int16.Parse(t);
-					index += 4;
-					if (formSettings.cDust.Checked)
-						res += "L" + t;
-				}
-				if (s.Substring(index, 1).Equals("I"))
-				{
-					t = s.Substring(++index, 4);
-					co2Value = Int16.Parse(t);
-					index += 4;
-					if (formSettings.cIon.Checked)
-						res += "T" + t;
-				}
-			}
+				ChartScaleUpdate();
+			}));
 			res += "E\n";
 
 			if (formSettings.isRecordingEnabled && formSettings.RecordCurrent()) SaveWeatherString(res);
 		}
 
+		StreamWriter sw;
 		private void SaveWeatherString(string s)
 		{
 			if (!Directory.Exists(Application.StartupPath + @"/Data"))
 				Directory.CreateDirectory(Application.StartupPath + @"/Data");
 
-			using (StreamWriter sw = new StreamWriter(Application.StartupPath + @"/Data/file_"
-					  + DateTime.Now.ToShortDateString() + "d.txt", true)) //append
-			{
-				sw.Write(s);
-				sw.Close();
-			}
+			sw = new StreamWriter(Application.StartupPath + @"/Data/file_"
+					  + DateTime.Now.ToShortDateString() + ".txt", true); //append
+					  
+			sw.Write(s);
+			sw.Close();
 		}
 
 		private void ParseWeatherStringZ(string s)

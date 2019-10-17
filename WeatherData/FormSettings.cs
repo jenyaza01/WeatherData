@@ -29,7 +29,7 @@ namespace Weatherdata
 		}
 
 		internal bool isRecordingEnabled = false;
-		internal bool hasToRecord = false;
+		internal bool hasToRecord = false; // is there some checkboxes?
 
 		private void UpdHasToRecordState()
 		{
@@ -128,12 +128,15 @@ namespace Weatherdata
 						bSetMeasureTime.Text = $"Встановлено ({hours}:{min})";
 
 						timer1.Start();
+
+						parentForm.nIcon.Visible = true;
 					}
 					else
 					{
 						timer1.Stop();
 						UpdRecordingState(); // this update isRecordingEnabled to false and color to redish
 						bSetMeasureTime.Text = $"Встановити (00:00)";
+						parentForm.nIcon.Visible = false;
 					}
 				else
 				{
@@ -151,9 +154,9 @@ namespace Weatherdata
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-			if (Width == 630)
-				Width = 341;
-			else Width = 630;
+			if (Width == 340)
+				Width = 630;
+			else Width = 340;
 		}
 
 		private void DataSource_CheckedChanged(object sender, EventArgs e)
@@ -245,7 +248,7 @@ namespace Weatherdata
 			}
 			int hours = measureTimeMinutes / 60;
 			int min = measureTimeMinutes - (hours * 60);
-			bSetMeasureTime.Text = $"Встановлено ({hours}:{"min:2d"})";
+			bSetMeasureTime.Text = $"Встановлено ({hours}:{min})";
 		}
 
 		private int reloadTime;

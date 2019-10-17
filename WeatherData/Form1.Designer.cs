@@ -1,33 +1,35 @@
 ﻿namespace Weatherdata
 {
-    partial class Form1
-    {
-        /// <summary>
-        /// Обязательная переменная конструктора.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
+	partial class Form1
+	{
+		/// <summary>
+		/// Обязательная переменная конструктора.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Освободить все используемые ресурсы.
-        /// </summary>
-        /// <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+		/// <summary>
+		/// Освободить все используемые ресурсы.
+		/// </summary>
+		/// <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if (disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			pen.Dispose();
+			sw.Dispose();
+			base.Dispose(disposing);
+		}
 
-        #region Код, автоматически созданный конструктором форм Windows
+		#region Код, автоматически созданный конструктором форм Windows
 
-        /// <summary>
-        /// Требуемый метод для поддержки конструктора — не изменяйте 
-        /// содержимое этого метода с помощью редактора кода.
-        /// </summary>
-        private void InitializeComponent()
-        {
+		/// <summary>
+		/// Требуемый метод для поддержки конструктора — не изменяйте 
+		/// содержимое этого метода с помощью редактора кода.
+		/// </summary>
+		private void InitializeComponent()
+		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
 			this.bConnect = new System.Windows.Forms.Button();
@@ -66,6 +68,7 @@
 			this.panel11 = new System.Windows.Forms.Panel();
 			this.labelDustS = new System.Windows.Forms.Label();
 			this.button2 = new System.Windows.Forms.Button();
+			this.nIcon = new System.Windows.Forms.NotifyIcon(this.components);
 			this.panel1.SuspendLayout();
 			this.panel3.SuspendLayout();
 			this.panel4.SuspendLayout();
@@ -354,7 +357,7 @@
 			// 
 			// panel3
 			// 
-			this.panel3.BackColor = System.Drawing.SystemColors.ButtonShadow;
+			this.panel3.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.panel3.Controls.Add(this.labelDustM);
 			this.panel3.Location = new System.Drawing.Point(376, 421);
 			this.panel3.Name = "panel3";
@@ -364,6 +367,7 @@
 			// labelDustM
 			// 
 			this.labelDustM.AutoSize = true;
+			this.labelDustM.BackColor = System.Drawing.SystemColors.ButtonShadow;
 			this.labelDustM.Font = new System.Drawing.Font("Maiandra GD", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.labelDustM.Location = new System.Drawing.Point(82, 6);
 			this.labelDustM.Margin = new System.Windows.Forms.Padding(0);
@@ -375,7 +379,7 @@
 			// 
 			// panel4
 			// 
-			this.panel4.BackColor = System.Drawing.SystemColors.ButtonShadow;
+			this.panel4.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.panel4.Controls.Add(this.labelDustL);
 			this.panel4.Location = new System.Drawing.Point(642, 421);
 			this.panel4.Name = "panel4";
@@ -385,6 +389,7 @@
 			// labelDustL
 			// 
 			this.labelDustL.AutoSize = true;
+			this.labelDustL.BackColor = System.Drawing.SystemColors.ButtonShadow;
 			this.labelDustL.Font = new System.Drawing.Font("Maiandra GD", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.labelDustL.Location = new System.Drawing.Point(96, 6);
 			this.labelDustL.Margin = new System.Windows.Forms.Padding(0);
@@ -396,7 +401,7 @@
 			// 
 			// panel11
 			// 
-			this.panel11.BackColor = System.Drawing.SystemColors.ButtonShadow;
+			this.panel11.BackColor = System.Drawing.SystemColors.ActiveCaption;
 			this.panel11.Controls.Add(this.labelDustS);
 			this.panel11.Location = new System.Drawing.Point(111, 421);
 			this.panel11.Name = "panel11";
@@ -406,6 +411,7 @@
 			// labelDustS
 			// 
 			this.labelDustS.AutoSize = true;
+			this.labelDustS.BackColor = System.Drawing.SystemColors.ButtonShadow;
 			this.labelDustS.Font = new System.Drawing.Font("Maiandra GD", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.labelDustS.Location = new System.Drawing.Point(79, 6);
 			this.labelDustS.Margin = new System.Windows.Forms.Padding(0);
@@ -428,6 +434,11 @@
 			this.button2.UseVisualStyleBackColor = true;
 			this.button2.Visible = false;
 			this.button2.Click += new System.EventHandler(this.button2_Click);
+			// 
+			// nIcon
+			// 
+			this.nIcon.Text = "weatherData";
+			this.nIcon.Click += new System.EventHandler(this.nIcon_Click);
 			// 
 			// Form1
 			// 
@@ -467,6 +478,7 @@
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Name = "Form1";
 			this.Text = "Form1";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
 			this.Load += new System.EventHandler(this.Form1_Load);
 			this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
 			this.panel1.ResumeLayout(false);
@@ -479,7 +491,7 @@
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
-        }
+		}
 
 		#endregion
 
@@ -519,6 +531,7 @@
 		private System.Windows.Forms.Panel panel11;
 		internal System.Windows.Forms.Label labelDustS;
 		internal System.Windows.Forms.Button button2;
+		public System.Windows.Forms.NotifyIcon nIcon;
 	}
 }
 

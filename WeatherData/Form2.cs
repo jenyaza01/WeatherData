@@ -3,9 +3,9 @@ using System.Windows.Forms;
 
 namespace Weatherdata
 {
-	public partial class Form2 : Form
+	public partial class FormChart : Form
 	{
-		public Form2()
+		public FormChart()
 		{
 			InitializeComponent();
 		}
@@ -75,7 +75,7 @@ namespace Weatherdata
 
 		private void button6_Click(object sender, EventArgs e)
 		{
-			int[] q = new int[] {5};
+			int[] q = new int[] { 5 };
 			ShowChart(q);
 		}
 
