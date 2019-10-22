@@ -17,8 +17,8 @@
 			{
 				components.Dispose();
 			}
-			pen.Dispose();
-			sw.Dispose();
+			if (pen != null) pen.Dispose();
+			if (sw != null) sw.Dispose();
 			base.Dispose(disposing);
 		}
 
@@ -230,7 +230,6 @@
 			this.button1.TabIndex = 40;
 			this.button1.Text = "Random data";
 			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Visible = false;
 			this.button1.Click += new System.EventHandler(this.bRandom_Click);
 			// 
 			// panel10
@@ -424,7 +423,6 @@
 			// button2
 			// 
 			this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.button2.Enabled = false;
 			this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.button2.Location = new System.Drawing.Point(865, 580);
 			this.button2.Name = "button2";
@@ -432,7 +430,6 @@
 			this.button2.TabIndex = 43;
 			this.button2.Text = "Random300";
 			this.button2.UseVisualStyleBackColor = true;
-			this.button2.Visible = false;
 			this.button2.Click += new System.EventHandler(this.button2_Click);
 			// 
 			// nIcon
@@ -476,6 +473,7 @@
 			this.Controls.Add(this.panelHumdFull);
 			this.Controls.Add(this.labelHumd);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "Form1";
 			this.Text = "Form1";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);

@@ -29,9 +29,6 @@ namespace Weatherdata
 		private int luxPosition, pressPosition, co2Position, humdPosition;
 		private int dustSPosition, dustMPosition, dustLPosition;
 
-		private double currTime => Math.Round(DateTime.Now.Hour + DateTime.Now.Minute /
-		60d + DateTime.Now.Second / 3600d, 4);
-
 		#endregion
 
 
@@ -65,8 +62,10 @@ namespace Weatherdata
 				formChart.Hide();
 			else
 			{
+				if (formChart.WindowState == FormWindowState.Minimized)
+					formChart.WindowState = FormWindowState.Normal;
 				formChart.Show();
-				formChart.Activate();
+				formChart.BringToFront();
 			}
 		}
 
@@ -114,27 +113,31 @@ namespace Weatherdata
 				{
 					if (MessageBox.Show("Активний запис даних з пристрою.\nДійсно від'єднатися?", "Увага!", MessageBoxButtons.OKCancel) == DialogResult.OK)
 					{
-						formSettings.UpdRecordingState();
+						formSettings.disableAllCheckbox();
+						formSettings.isRecordingEnabled = false;
 						formSettings.timer1.Stop();
 						formSettings.bSetMeasureTime.Text = $"Встановити (00:00)";
 						nIcon.Visible = false;
-
-						try
-						{
-							serialPort1.Close();
-						}
-						catch (Exception)
-						{
-							MessageBox.Show("Порт закритий з помилкою.\nВірогідно, пристрій вже від'єднано");
-						}
-						finally
-						{
-							bConnect.Text = "Connect";
-							bReload.Enabled = true;
-							comboBox1.Enabled = true;
-							formSettings.UpdateButtonColor();
-						}
 					}
+					else return;
+				}
+
+				try
+				{
+					serialPort1.Close();
+				}
+				catch (Exception)
+				{
+					MessageBox.Show("Порт закритий з помилкою.\nВірогідно, пристрій вже від'єднано");
+				}
+				finally
+				{
+					formSettings.disableAllCheckbox();
+					bConnect.Text = "Connect";
+					bReload.Enabled = true;
+					comboBox1.Enabled = true;
+					formSettings.UpdateButtonColor();
+
 				}
 			}
 			else
@@ -148,6 +151,7 @@ namespace Weatherdata
 				{
 					MessageBox.Show("Не вдалося відкрити порт.\nПеревірте з'єднання пристрою з ПК");
 				}
+				formSettings.disableAllCheckbox();
 				formSettings.UpdRecordingState();
 				bReload.Enabled = false;
 				comboBox1.Enabled = false;
@@ -175,7 +179,12 @@ namespace Weatherdata
 			if (formSettings.Visible)
 				formSettings.Hide();
 			else
+			{
+				if (formSettings.WindowState == FormWindowState.Minimized)
+					formSettings.WindowState = FormWindowState.Normal;
 				formSettings.Show();
+				formSettings.BringToFront();
+			}
 		}
 
 		private void Form1_Paint(object sender, PaintEventArgs e)
@@ -192,11 +201,11 @@ namespace Weatherdata
 		{
 			await Task.Run(() =>
 			{
-				for (int i = 0; i < 300; i++)
+				for (int i = 0; i < 500; i++)
 				{
 					Invoke(new Action(() => { bRandom_Click(this, null); formChart.chart1.ChartAreas[0].RecalculateAxesScale(); }));
 
-					Task.Delay(50).Wait();
+					Task.Delay(250).Wait();
 				}
 			});
 		}
@@ -278,15 +287,7 @@ namespace Weatherdata
 		private void ChartScaleUpdate()
 		{
 			if (formChart.Visible)
-				try
-				{
-					formChart.chart1.ChartAreas[0].RecalculateAxesScale();
-					double delta = formChart.chart1.ChartAreas[0].AxisY.Maximum - formChart.chart1.ChartAreas[0].AxisY.Minimum;
-					formChart.chart1.ChartAreas[0].AxisY.Maximum += delta;
-					formChart.chart1.ChartAreas[0].AxisY.Minimum -= delta;
-				}
-				catch (OverflowException) { };
-
+				formChart.chart1.ChartAreas[0].RecalculateAxesScale();
 		}
 
 		private void PressureUpdate()
@@ -300,7 +301,7 @@ namespace Weatherdata
 
 			if (formChart.chart1.Series["Pressure"].Points.Count > CHART_POINTS)
 				formChart.chart1.Series["Pressure"].Points.RemoveAt(0);
-			formChart.chart1.Series["Pressure"].Points.AddXY(currTime, pressValue);
+			formChart.chart1.Series["Pressure"].Points.AddXY(DateTime.Now, pressValue);
 		}
 
 		private void TempUpdate()
@@ -310,7 +311,7 @@ namespace Weatherdata
 			panelTemp.Height = (int)Math.Round(tempValue * 1.5f);
 
 			if (formChart.chart1.Series["Temperature"].Points.Count > CHART_POINTS) formChart.chart1.Series["Temperature"].Points.RemoveAt(0);
-			formChart.chart1.Series["Temperature"].Points.AddXY(currTime, tempValue);
+			formChart.chart1.Series["Temperature"].Points.AddXY(DateTime.Now, tempValue);
 		}
 
 
@@ -321,7 +322,7 @@ namespace Weatherdata
 			panelHumdZero.Height = (int)Math.Round(73 - humdValue * 0.62);
 
 			if (formChart.chart1.Series["Humidity"].Points.Count > CHART_POINTS) formChart.chart1.Series["Humidity"].Points.RemoveAt(0);
-			formChart.chart1.Series["Humidity"].Points.AddXY(currTime, humdValue);
+			formChart.chart1.Series["Humidity"].Points.AddXY(DateTime.Now, humdValue);
 
 		}
 
@@ -332,7 +333,7 @@ namespace Weatherdata
 			panelCO2.Left = (int)Math.Round(Math.Log(co2Value - CHART_POINTS) * 81 + 185);
 
 			if (formChart.chart1.Series["CO2"].Points.Count > CHART_POINTS) formChart.chart1.Series["CO2"].Points.RemoveAt(0);
-			formChart.chart1.Series["CO2"].Points.AddXY(currTime, co2Value);
+			formChart.chart1.Series["CO2"].Points.AddXY(DateTime.Now, co2Value);
 
 			if (!panelCO2.Visible) panelCO2.Visible = true;
 		}
@@ -344,7 +345,7 @@ namespace Weatherdata
 
 			panelLux.Left = (int)Math.Round(Math.Log(luxValue + 5) * 42 + 8);
 			if (formChart.chart1.Series["Brightness"].Points.Count > CHART_POINTS) formChart.chart1.Series["Brightness"].Points.RemoveAt(0);
-			formChart.chart1.Series["Brightness"].Points.AddXY(currTime, luxValue);
+			formChart.chart1.Series["Brightness"].Points.AddXY(DateTime.Now, luxValue);
 
 			if (!panelLux.Visible) panelLux.Visible = true;
 		}
@@ -376,7 +377,7 @@ namespace Weatherdata
 
 			//panelDustM.Left = 0;
 			if (formChart.chart1.Series["Dust"].Points.Count > CHART_POINTS) formChart.chart1.Series["Dust"].Points.RemoveAt(0);
-			formChart.chart1.Series["Dust"].Points.AddXY(currTime, dustMValue);
+			formChart.chart1.Series["Dust"].Points.AddXY(DateTime.Now, dustMValue);
 
 			//	if (!panelDustM.Visible) panelDustM.Visible = true;
 		}
@@ -425,7 +426,7 @@ namespace Weatherdata
 
 		private bool IsValidLength(int length)
 		{
-			return (((length + 1) % 4) == 0);
+			return (((length) % 4) == 0);
 		}
 
 		private void ParseWeatherStringS(string s)
@@ -525,7 +526,7 @@ namespace Weatherdata
 			if (formSettings.isRecordingEnabled && formSettings.RecordCurrent()) SaveWeatherString(res);
 		}
 
-		StreamWriter sw;
+		private StreamWriter sw;
 		private void SaveWeatherString(string s)
 		{
 			if (!Directory.Exists(Application.StartupPath + @"/Data"))
@@ -533,7 +534,7 @@ namespace Weatherdata
 
 			sw = new StreamWriter(Application.StartupPath + @"/Data/file_"
 					  + DateTime.Now.ToShortDateString() + ".txt", true); //append
-					  
+
 			sw.Write(s);
 			sw.Close();
 		}

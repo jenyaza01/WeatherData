@@ -39,6 +39,17 @@ namespace Weatherdata
 			UpdateButtonColor();
 		}
 
+		public void disableAllCheckbox()
+		{
+			cTemp.Checked = false;
+			cHumid.Checked = false;
+			cPressure.Checked = false;
+			cBrightness.Checked = false;
+			cCO2.Checked = false;
+			cIon.Checked = false;
+		}
+
+
 		internal void UpdRecordingState()
 		{
 			if (!isRecordingEnabled && hasToRecord)
@@ -237,12 +248,7 @@ namespace Weatherdata
 
 				if (isRecordingEnabled)
 				{
-					cTemp.Checked = false;
-					cHumid.Checked = false;
-					cPressure.Checked = false;
-					cBrightness.Checked = false;
-					cCO2.Checked = false;
-					cIon.Checked = false;
+					disableAllCheckbox();
 				}
 				return;
 			}
