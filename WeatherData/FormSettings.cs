@@ -4,288 +4,312 @@ using System.Windows.Forms;
 
 namespace Weatherdata
 {
-	internal partial class FormSettings : Form
-	{
+    internal partial class FormSettings : Form
+    {
+        internal FormMain parentForm;
+        internal FormSettings()
+        {
+            InitializeComponent();
+            Width = 332;
+        }
 
-		//y = Ax + B, for calibrating
-		internal float TempFixA = 1f, TempFixB = 0f;
-		internal float HumdFixA = 1f, HumdFixB = 0f;
-		internal float PresFixA = 1f, PresFixB = 0f;
-		internal float BrtnFixA = 1f, BrtnFixB = 0f;
-		internal float CO2FixA = 1f, CO2FixB = 0f;
-		internal float IonFixA = 1f, IonFixB = 0f;
+        private void FormSettings_Load(object sender, EventArgs e) => UpdateButtonColor();
 
-
-
-		internal FormSettings()
-		{
-			InitializeComponent();
-		}
-
-		private void FormSettings_FormClosing(object sender, FormClosingEventArgs e)
-		{
-			e.Cancel = true;
-			Hide();
-		}
-
-		internal bool isRecordingEnabled = false;
-		internal bool hasToRecord = false; // is there some checkboxes?
-
-		private void UpdHasToRecordState()
-		{
-			if (cTemp.Checked || cHumid.Checked || cPressure.Checked || cBrightness.Checked || cCO2.Checked || cIon.Checked)
-				hasToRecord = true;
-			else hasToRecord = false;
-			UpdateButtonColor();
-		}
-
-		public void disableAllCheckbox()
-		{
-			cTemp.Checked = false;
-			cHumid.Checked = false;
-			cPressure.Checked = false;
-			cBrightness.Checked = false;
-			cCO2.Checked = false;
-			cIon.Checked = false;
-		}
+        private void FormSettings_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            Hide();
+        }
 
 
-		internal void UpdRecordingState()
-		{
-			if (!isRecordingEnabled && hasToRecord)
-			{
-				isRecordingEnabled = true;
-				UpdateButtonColor();
-			}
-			else
-			{
-				isRecordingEnabled = false;
-				UpdateButtonColor();
-			}
-		}
+        //y = Ax + B, for calibrating
+        internal float TempFixA = 1f, TempFixB = 0f;
+        internal float HumdFixA = 1f, HumdFixB = 0f;
+        internal float PresFixA = 1f, PresFixB = 0f;
+        internal float BrtnFixA = 1f, BrtnFixB = 0f;
+        internal float CO2FixA = 1f, CO2FixB = 0f;
+        internal float IonFixA = 1f, IonFixB = 0f;
 
-		internal void UpdateButtonColor()
-		{
-			if (!parentForm.serialPort1.IsOpen)
-				bSetMeasureTime.BackColor = Color.Gray;
-			else if (!hasToRecord)
-				bSetMeasureTime.BackColor = Color.IndianRed;
-			else if (!isRecordingEnabled)
-				bSetMeasureTime.BackColor = Color.DarkSalmon;
-			else bSetMeasureTime.BackColor = Color.LimeGreen;
-		}
+        internal bool isRecordingActive = false;
+        internal bool hasDataToRecord = false; // is there some checkboxes?
 
 
-		private void FixChanged(object sender, EventArgs e) //apply calibrating
-		{
-			TextBox tb = sender as TextBox;
-			string s = tb.Text.Replace(".", ",");
-			switch (tb.Name)
-			{
-				case "TempA": TempFixA = Single.Parse(s); break;
-				case "TempB": TempFixB = Single.Parse(s); break;
 
-				case "HumdA": HumdFixA = Single.Parse(s); break;
-				case "HumdB": HumdFixB = Single.Parse(s); break;
+        private void UpdHasToRecordState()
+        {
+            hasDataToRecord = cTemp.Checked || cHumid.Checked || cPressure.Checked || cBrightness.Checked || cCO2.Checked || cIon.Checked ? true : false;
+            UpdateButtonColor();
+        }
 
-				case "PresA": PresFixA = Single.Parse(s); break;
-				case "PresB": PresFixB = Single.Parse(s); break;
-
-				case "BrtnA": BrtnFixA = Single.Parse(s); break;
-				case "BrtnB": BrtnFixB = Single.Parse(s); break;
-
-				case "CO2A": CO2FixA = Single.Parse(s); break;
-				case "CO2B": CO2FixB = Single.Parse(s); break;
-
-				case "IonA": IonFixA = Single.Parse(s); break;
-				case "IonB": IonFixB = Single.Parse(s); break;
-
-				default: throw new NotImplementedException($"Name {tb.Name} unlisted here");
-			}
-		}
-
-		private volatile int measureTimeMinutes = 0;
-		private int recordEvery = 1;
-		private int recordCurrent = 1;
-
-		public bool RecordCurrent()
-		{
-			if (recordCurrent >= recordEvery) { recordCurrent = 1; return true; }
-			recordCurrent++;
-			return false;
-		}
-
-		private void bSetMeasureTime_Click(object sender, EventArgs e)
-		{
-			if (parentForm.serialPort1.IsOpen)
-				if (hasToRecord)
-					if (!isRecordingEnabled)
-					{
-						timer1.Stop();
-
-						if (radioButtMinutes.Checked)
-							recordEvery = (int)numRefRate.Value * 6;
-						else recordEvery = (int)numRefRate.Value / 10;
-
-						recordCurrent = 1;
-
-						if (radioButtonMinutes2.Checked)
-							measureTimeMinutes = (int)numMeasureTime.Value;
-						else measureTimeMinutes = (int)numMeasureTime.Value * 60;
-
-						UpdRecordingState(); // this update isRecordingEnabled to true color to green
-						int hours = measureTimeMinutes / 60;
-						int min = measureTimeMinutes - (hours * 60);
-						bSetMeasureTime.Text = $"Встановлено ({hours}:{min})";
-
-						timer1.Start();
-
-						parentForm.nIcon.Visible = true;
-					}
-					else
-					{
-						timer1.Stop();
-						UpdRecordingState(); // this update isRecordingEnabled to false and color to redish
-						bSetMeasureTime.Text = $"Встановити (00:00)";
-						parentForm.nIcon.Visible = false;
-					}
-				else
-				{
-					isRecordingEnabled = false; // just in case
-					MessageBox.Show("Оберіть необхідні покази для запису");
-					bSetMeasureTime.Text = $"Встановити (00:00)";
-				}
-			else
-			{
-				isRecordingEnabled = false; // just in case
-				MessageBox.Show("Не підключено до пристрою через SerialPort");
-				bSetMeasureTime.Text = $"Встановити (00:00)";
-			}
-		}
-
-		private void button1_Click(object sender, EventArgs e)
-		{
-			if (Width == 340)
-				Width = 630;
-			else Width = 340;
-		}
-
-		private void DataSource_CheckedChanged(object sender, EventArgs e)
-		{
-			UpdHasToRecordState();
-		}
-
-		private void FormSettings_Load(object sender, EventArgs e)
-		{
-			UpdateButtonColor();
-		}
-
-		private void bСalibrationSend_Click(object sender, EventArgs e)
-		{
-			string str = "C";
-			double val;
-
-			if (Double.TryParse(TempA.Text.Replace(".", ","), out val))
-				if (val != 1.0)
-					str += "TA" + clamp2(val, 0.5, 2.0, 1000).ToString();
-			if (Double.TryParse(TempB.Text.Replace(".", ","), out val))
-				if (val != 0.0)
-					str += "TB" + clamp2(val, -9.99, 99.99, 100).ToString();
+        internal void UpdateButtonColor()
+        {
+            if (!parentForm.serialPort1.IsOpen)
+                bSetMeasureTime.BackColor = Color.Gray;
+            else if (!hasDataToRecord)
+                bSetMeasureTime.BackColor = Color.IndianRed;
+            else if (!isRecordingActive)
+                bSetMeasureTime.BackColor = Color.DarkSalmon;
+            else
+                bSetMeasureTime.BackColor = Color.LimeGreen;
+        }
 
 
-			if (Double.TryParse(HumdA.Text.Replace(".", ","), out val))
-				if (val != 1.0)
-					str += "HA" + clamp2(val, 0.5, 2.0, 1000).ToString();
-			if (Double.TryParse(HumdB.Text.Replace(".", ","), out val))
-				if (val != 0.0)
-					str += "HB" + clamp2(val, -9.99, 99.99, 100).ToString();
+        public void disableAllCheckbox()
+        {
+            cTemp.Checked = false;
+            cHumid.Checked = false;
+            cPressure.Checked = false;
+            cBrightness.Checked = false;
+            cCO2.Checked = false;
+            cIon.Checked = false;
+        }
+
+        internal void ToggleRecordingState()
+        {
+            if (hasDataToRecord && !isRecordingActive)
+            {
+                isRecordingActive = true;
+                UpdateButtonColor();
+            }
+            else
+            {
+                isRecordingActive = false;
+                UpdateButtonColor();
+            }
+        }
+
+        private void TextBoxCalibration_Leave(object sender, EventArgs e) //apply calibrating
+        {
+            TextBox tb = sender as TextBox;
+            string str = tb.Text.Replace(".", ",");
+            switch (tb.Name)
+            {
+                case "TempA":
+                    TempFixA = float.Parse(str);
+                    break;
+                case "TempB":
+                    TempFixB = float.Parse(str);
+                    break;
+
+                case "HumdA":
+                    HumdFixA = float.Parse(str);
+                    break;
+                case "HumdB":
+                    HumdFixB = float.Parse(str);
+                    break;
+
+                case "PresA":
+                    PresFixA = float.Parse(str);
+                    break;
+                case "PresB":
+                    PresFixB = float.Parse(str);
+                    break;
+
+                case "BrtnA":
+                    BrtnFixA = float.Parse(str);
+                    break;
+                case "BrtnB":
+                    BrtnFixB = float.Parse(str);
+                    break;
+
+                case "CO2A":
+                    CO2FixA = float.Parse(str);
+                    break;
+                case "CO2B":
+                    CO2FixB = float.Parse(str);
+                    break;
+
+                case "IonA":
+                    IonFixA = float.Parse(str);
+                    break;
+                case "IonB":
+                    IonFixB = float.Parse(str);
+                    break;
+
+                default:
+                    throw new NotImplementedException($"Name {tb.Name} not listed here");
+            }
+        }
 
 
-			if (Double.TryParse(PresA.Text.Replace(".", ","), out val))
-				if (val != 1.0)
-					str += "PA" + clamp2(val, 0.5, 2.0, 1000).ToString();
-			if (Double.TryParse(PresB.Text.Replace(".", ","), out val))
-				if (val != 0.0)
-					str += "PB" + clamp2(val, -9.99, 99.99, 100).ToString();
+        private int measureTimeMinutes = 0;
+        private int recordEveryN = 1;
+        private int recordCurrN = 1;
+
+        public bool needRecordCurrent()
+        {
+            if (recordCurrN >= recordEveryN)
+            { recordCurrN = 1; return true; }
+            recordCurrN++;
+            return false;
+        }
+
+        private void bSetMeasureTime_Click(object sender, EventArgs e)
+        {
+            if (parentForm.serialPort1.IsOpen)
+                if (hasDataToRecord)
+                    if (!isRecordingActive)
+                    {
+                        recordEveryN = rbPeriodMinutes.Checked ? (int)numRefRate.Value * 6 : (int)numRefRate.Value / 10;
+
+                        recordCurrN = 1;
+
+                        measureTimeMinutes = rbTotalTimeMinutes.Checked ? (int)numMeasureTime.Value : (int)numMeasureTime.Value * 60;
+
+                        ToggleRecordingState(); // set isRecordingActive to true
+                        int hours = measureTimeMinutes / 60;
+                        int min = measureTimeMinutes - (hours * 60);
+                        bSetMeasureTime.Text = "Встановлено (" +
+                            hours.ToString("00:") + min.ToString("00)");
+
+                        gbInputTypes.Enabled = false;
+
+                        timer1.Start();
+
+                        parentForm.nIcon.Visible = true;
+                    }
+                    else
+                    {
+                        timer1.Stop();
+                        gbInputTypes.Enabled = true;
+                        ToggleRecordingState(); // set isRecordingActive to false
+                        bSetMeasureTime.Text = $"Встановити (00:00)";
+                        parentForm.nIcon.Visible = false;
+                    }
+                else
+                {
+                    timer1.Stop();
+                    ToggleRecordingState();
+                    gbInputTypes.Enabled = true;
+                    MessageBox.Show("Не обрано дані для запису");
+                    bSetMeasureTime.Text = $"Встановити (00:00)";
+                }
+            else
+            {
+                timer1.Stop();
+                ToggleRecordingState();
+                gbInputTypes.Enabled = true;
+                MessageBox.Show("Не підключено до пристрою через SerialPort");
+                bSetMeasureTime.Text = $"Встановити (00:00)";
+            }
+        }
+
+        private void bWidth_Click(object sender, EventArgs e) => Width = Width == 332 ? 625 : 332;
+
+        private void DataSource_CheckedChanged(object sender, EventArgs e) => UpdHasToRecordState();
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (parentForm.serialPort1.IsOpen)
+                parentForm.serialPort1.Write("D");
+        }
 
 
-			if (Double.TryParse(BrtnA.Text.Replace(".", ","), out val))
-				if (val != 1.0)
-					str += "BA" + clamp2(val, 0.5, 2.0, 1000).ToString();
-			if (Double.TryParse(BrtnB.Text.Replace(".", ","), out val))
-				if (val != 0.0)
-					str += "BB" + clamp2(val, -9.99, 99.99, 100).ToString();
+        internal void ParseStringD(string str)
+        {
+            int i = 1; // one step over 'D'
+
+            TempA.Text = (int.Parse(str.Substring(i, 5)) / 1000f).ToString();
+            TempB.Text = (int.Parse(str.Substring(i += 5, 5)) / 100f).ToString();
+
+            HumdA.Text = (int.Parse(str.Substring(i += 5, 5)) / 1000f).ToString();
+            HumdB.Text = (int.Parse(str.Substring(i += 5, 5)) / 100f).ToString();
+
+            PresA.Text = (int.Parse(str.Substring(i += 5, 5)) / 1000f).ToString();
+            PresB.Text = (int.Parse(str.Substring(i += 5, 5)) / 100f).ToString();
+
+            BrtnA.Text = (int.Parse(str.Substring(i += 5, 5)) / 1000f).ToString();
+            BrtnB.Text = (int.Parse(str.Substring(i += 5, 5)) / 100f).ToString();
+
+            CO2A.Text = (int.Parse(str.Substring(i += 5, 5)) / 1000f).ToString();
+            CO2B.Text = (int.Parse(str.Substring(i += 5, 5)) / 10f).ToString();
+
+            i += 30; // no dust
+
+            IonA.Text = (int.Parse(str.Substring(i += 5, 5)) / 1000f).ToString();
+            IonB.Text = (int.Parse(str.Substring(i += 5, 5)) / 100f).ToString();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (parentForm.serialPort1.IsOpen)
+                parentForm.serialPort1.Write("L");
+        }
+
+        private void bСalibrationSend_Click(object sender, EventArgs e)
+        {
+            string str = "C";
+
+            if (double.TryParse(TempA.Text.Replace(".", ","), out double val))
+                str += "TA" + clamp2(val, 0.5, 2.0, 1000).ToString("0000");
+            if (double.TryParse(TempB.Text.Replace(".", ","), out val))
+                str += "TB" + clamp2(val, -99.99, 99.99, 100).ToString("0000");
 
 
-			if (Double.TryParse(CO2A.Text.Replace(".", ","), out val))
-				if (val != 1.0)
-					str += "CA" + clamp2(val, 0.5, 2.0, 1000).ToString();
-			if (Double.TryParse(CO2B.Text.Replace(".", ","), out val))
-				if (val != 0.0)
-					str += "CB" + clamp2(val, -9.99, 99.99, 100).ToString();
+            if (double.TryParse(HumdA.Text.Replace(".", ","), out val))
+                str += "HA" + clamp2(val, 0.5, 2.0, 1000).ToString("0000");
+            if (double.TryParse(HumdB.Text.Replace(".", ","), out val))
+                str += "HB" + clamp2(val, -99.99, 99.99, 100).ToString("0000");
 
-			parentForm.serialPort1.WriteLine(str);
-		}
 
-		private int clamp2(double a, double min, double max, int multiplier)
-		{
-			return (int)((a < max ? a > min ? a : min : max) * multiplier);
-		}
+            if (double.TryParse(PresA.Text.Replace(".", ","), out val))
+                str += "PA" + clamp2(val, 0.5, 2.0, 1000).ToString("0000");
+            if (double.TryParse(PresB.Text.Replace(".", ","), out val))
+                str += "PB" + clamp2(val, -99.99, 99.99, 100).ToString("0000");
 
-		private void radioButtMinutes_CheckedChanged(object sender, EventArgs e)
-		{
-			numRefRate.Increment = 1;
-		}
 
-		private void timer1_Tick(object sender, EventArgs e)
-		{
-			measureTimeMinutes--;
-			if (measureTimeMinutes == 0)
-			{
-				UpdRecordingState();
-				timer1.Stop();
-				bSetMeasureTime.Text = $"Встановити (00:00)";
+            if (double.TryParse(BrtnA.Text.Replace(".", ","), out val))
+                str += "BA" + clamp2(val, 0.5, 2.0, 1000).ToString("0000");
+            if (double.TryParse(BrtnB.Text.Replace(".", ","), out val))
+                str += "BB" + clamp2(val, -99.99, 99.99, 100).ToString("0000");
 
-				if (isRecordingEnabled)
-				{
-					disableAllCheckbox();
-				}
-				return;
-			}
-			int hours = measureTimeMinutes / 60;
-			int min = measureTimeMinutes - (hours * 60);
-			bSetMeasureTime.Text = $"Встановлено ({hours}:{min})";
-		}
 
-		private int reloadTime;
-		private void radioButton2_CheckedChanged(object sender, EventArgs e)
-		{
-			numRefRate.Increment = 10;
-			if (radioButtonSeconds.Checked)
-				if (numRefRate.Value < 10)
-					numRefRate.Value = 10;
-		}
+            if (double.TryParse(CO2A.Text.Replace(".", ","), out val))
+                str += "CA" + clamp2(val, 0.5, 2.0, 1000).ToString("0000");
+            if (double.TryParse(CO2B.Text.Replace(".", ","), out val))
+                str += "CB" + clamp2(val, -999.9, 999.9, 10).ToString("0000");
 
-		private void numericUpDown1_ValueChanged(object sender, EventArgs e)
-		{
-			if (radioButtonSeconds.Checked)
-				if (numRefRate.Value < 10)
-					numRefRate.Value = 10;
-		}
+            parentForm.serialPort1.WriteLine(str);
+        }
 
-		internal Form1 parentForm;
-		private void SendReloadPeriod()
-		{
-			reloadTime = (int)numRefRate.Value;
-			if (radioButtMinutes.Checked)
-				reloadTime *= 60;
-			parentForm.serialPort1.WriteLine("R" + reloadTime.ToString());
-		}
 
-		/*	private void bRefRate_Click(object sender, EventArgs e)
-			{
-				string s = radioButtMinutes.Checked ? "хв" : "сек";
-				bRefRate.Text = $"Встановити ({numRefRate.Value} {s})";
-			} */
-	}
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            measureTimeMinutes--;
+            if (measureTimeMinutes == 0)
+            {
+                timer1.Stop();
+                gbInputTypes.Enabled = true;
+                ToggleRecordingState(); // set isRecordingActive to false
+                bSetMeasureTime.Text = $"Встановити (00:00)";
+                parentForm.nIcon.Visible = false;
+                parentForm.Show();
+                return;
+            }
+            int hours = measureTimeMinutes / 60;
+            int min = measureTimeMinutes - (hours * 60);
+
+            bSetMeasureTime.Text = "Встановлено (" + hours.ToString("00:") + min.ToString("00)");
+        }
+
+
+        private int clamp2(double a, double min, double max, int multiplier) => (int)((a < max ? a > min ? a : min : max) * multiplier);
+
+        private void radioButtMinutes_CheckedChanged(object sender, EventArgs e) => numRefRate.Increment = 1;
+
+        private void rbPeriodSeconds_CheckedChanged(object sender, EventArgs e)
+        {
+            numRefRate.Increment = 10;
+            if (rbPeriodSeconds.Checked)
+                if (numRefRate.Value < 10)
+                    numRefRate.Value = 10;
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            if (rbPeriodSeconds.Checked)
+                if (numRefRate.Value < 10)
+                    numRefRate.Value = 10;
+        }
+    }
 }

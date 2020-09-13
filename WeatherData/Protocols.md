@@ -1,10 +1,12 @@
 ﻿///////// ----- RECEIVING ------ /////////
 
 This program receives STRING-type data from serial port (measuring device).
-Every new string is at new line
+Every new string is at new line.
 String examples: 
 ST0243H0541P7556B0807C1204S0440M0091L0012I0507E
+
 SB0807P7556T0243C1204H0541E
+
 ZP7556B0807E
 
 S - start of default data string. E marks end of string. If those missing, string ignored as wrong or corrupted
@@ -21,13 +23,13 @@ I0290
 
 Data substrings letters, types and parsing examples:
 
-T - temperature				T1234 means 123.4°C
+T - temperature				T1234 means 123.4�C
 H - relative humidity		H1234 means 123.4% RH
 P - atmospheric pressure	P1234 means 123.4 mmHG
-B - brightness					B1234 means 1234 lux
-C - air CO2 level				C1234 means 1234 ppm
-S - dust sensor value		S1234 means 1234 pm10 standart units
-M - dust sensor value		M1234 means 1234 pm25 standart units
+B - brightness				B1234 means 1234 lux
+C - air CO2 level			C1234 means 1234 ppm
+S - dust sensor value		S1234 means 1234 pm10 standart units - <10mkm
+M - dust sensor value		M1234 means 1234 pm25 standart units - <2.5 mkm
 L - dust sensor value		L1234 means 1234 pm100 standart units
 I - ion level					----
 
@@ -55,7 +57,7 @@ C - update calibrating
 
 
 
-Calibrating format CXXYYYY
+Calibrating format: CXXYYYY
 
 Second letter - select data type
 T - temperature				
@@ -76,4 +78,4 @@ B - change the added value, default is float 0.0
 
 Calibrating values stored in EEPROM inside device, this means 
 1) you mustn't re-set them after every reload of device;
-2) you have a limited number of rewrites of these numbers (up to ~20000).
+2) you have a limited number of rewrites of these numbers (up to ~10000).
